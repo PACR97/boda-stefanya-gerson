@@ -159,10 +159,11 @@
 
             <p class="uppercase tracking-[0.2em] text-xs font-light mt-4">A la celebración de la unión de</p>
             
+            <!-- Título Principal (Ahora con IDs para edición) -->
             <h1 class="text-6xl md:text-8xl lg:text-9xl mt-4 leading-tight">
-                <span class="block transform -rotate-2 origin-bottom-right" style="color: var(--text-color)">Alejandro</span>
+                <span id="groomDisplay" class="block transform -rotate-2 origin-bottom-right" style="color: var(--text-color)">Alejandro</span>
                 <span class="block text-4xl my-2 font-light italic text-[var(--primary-color)]">&</span>
-                <span class="block transform rotate-2 origin-bottom-left" style="color: var(--text-color)">Sofia</span>
+                <span id="brideDisplay" class="block transform rotate-2 origin-bottom-left" style="color: var(--text-color)">Sofia</span>
             </h1>
 
             <div class="mt-12 text-lg md:text-xl tracking-widest font-light border-y border-[var(--primary-color)] border-opacity-30 py-3 inline-block px-12">
@@ -179,9 +180,15 @@
             <p class="leading-relaxed opacity-80 text-sm md:text-base font-light">
                 Hemos trazado un camino juntos lleno de momentos inolvidables, y en este día tan especial, el paisaje no estaría completo sin ti. Tu presencia es el regalo más valioso que podemos recibir.
             </p>
-            <p class="mt-6 font-bold uppercase text-xs tracking-widest" style="color: var(--primary-color)">
-                Mesa Asignada: <span id="tableNumberDisplay" class="text-lg ml-2">...</span>
-            </p>
+            
+            <!-- TARJETA DE MESA DESTACADA (MODIFICADO) -->
+            <div class="mt-10 p-6 border border-[var(--primary-color)] bg-white/40 backdrop-blur-sm rounded-lg inline-block shadow-lg transform transition-transform hover:scale-105 duration-500">
+                <p class="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-60">Tu Mesa Asignada</p>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-2xl opacity-40 font-serif">No.</span>
+                    <span id="tableNumberDisplay" class="text-6xl font-serif text-[var(--primary-color)] leading-none">...</span>
+                </div>
+            </div>
         </section>
 
         <!-- GALERÍA DE NOVIOS -->
@@ -256,12 +263,12 @@
         </section>
         
         <footer class="text-xs opacity-50 pb-8">
-            <p>Diseñado con amor para Alejandro & Sofia &copy; 2025</p>
+            <p>Diseñado con amor para <span id="footerNames">Alejandro & Sofia</span> &copy; 2025</p>
         </footer>
 
     </main>
 
-    <!-- PANEL ADMINISTRATIVO (ACTUALIZADO: EDICIÓN Y LISTADO) -->
+    <!-- PANEL ADMINISTRATIVO -->
     <div id="adminPanel" class="fixed bottom-0 left-0 w-full bg-white shadow-2xl transform translate-y-full transition-transform duration-300 z-50 border-t border-gray-200 h-[85vh] flex flex-col">
         
         <!-- Header del Panel -->
@@ -279,38 +286,53 @@
         <div class="overflow-y-auto flex-1 p-6">
             <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
-                <!-- COLUMNA IZQUIERDA: FORMULARIOS (4/12) -->
-                <div class="lg:col-span-4 space-y-8">
+                <!-- COLUMNA IZQUIERDA: CONFIGURACIÓN (4/12) -->
+                <div class="lg:col-span-4 space-y-6">
                     
+                    <!-- Configuración Protagonistas (NUEVO) -->
+                    <div class="bg-yellow-50 p-4 rounded border border-yellow-100">
+                        <h5 class="text-xs uppercase font-bold text-yellow-600 tracking-wider mb-3">1. Protagonistas</h5>
+                        <div class="flex gap-2 mb-2">
+                            <div class="flex-1">
+                                <label class="text-[10px] text-gray-400 font-bold">Novio/a 1</label>
+                                <input type="text" id="inputGroom" value="Alejandro" class="w-full border border-gray-300 p-1.5 text-sm rounded focus:border-yellow-500 outline-none">
+                            </div>
+                            <div class="flex-1">
+                                <label class="text-[10px] text-gray-400 font-bold">Novio/a 2</label>
+                                <input type="text" id="inputBride" value="Sofia" class="w-full border border-gray-300 p-1.5 text-sm rounded focus:border-yellow-500 outline-none">
+                            </div>
+                        </div>
+                        <button id="updateNamesBtn" class="w-full bg-yellow-600 text-white py-1.5 text-xs rounded hover:bg-yellow-700 transition-colors">
+                            Actualizar Títulos
+                        </button>
+                    </div>
+
                     <!-- Configuración Visual -->
                     <div class="bg-gray-50 p-4 rounded border border-gray-100">
-                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-2">1. Estilo Visual</h5>
+                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-2">2. Estilo Visual</h5>
                         <select id="styleSelector" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none bg-white">
                             <!-- Se llena con JS -->
                         </select>
                     </div>
 
-                    <!-- Formulario de Gestión (Crear/Editar) -->
+                    <!-- Formulario de Gestión -->
                     <div class="bg-white p-4 rounded border border-gray-200 shadow-sm relative">
                         <div id="editModeIndicator" class="hidden absolute -top-3 left-4 bg-yellow-100 text-yellow-800 text-[10px] uppercase font-bold px-2 py-1 rounded border border-yellow-200">
                             Modo Edición
                         </div>
                         
-                        <h5 id="formTitle" class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">2. Nuevo Invitado</h5>
+                        <h5 id="formTitle" class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">3. Nuevo Invitado</h5>
                         
                         <form id="adminForm" class="flex flex-col gap-3">
-                            <input type="hidden" id="editGuestId"> <!-- ID oculto para edición -->
-                            
+                            <input type="hidden" id="editGuestId">
                             <div>
                                 <label class="text-[10px] uppercase text-gray-400 font-bold">Nombre</label>
                                 <input type="text" id="newGuestName" placeholder="Ej: Familia Pérez" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none transition-colors" required>
                             </div>
-                            
                             <div>
                                 <label class="text-[10px] uppercase text-gray-400 font-bold">Mesa</label>
                                 <input type="number" id="newGuestTable" placeholder="#" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none transition-colors" required>
                             </div>
-
                             <div class="flex gap-2 pt-2">
                                 <button type="submit" id="submitGuestBtn" class="flex-1 bg-gray-900 text-white px-4 py-2 text-sm rounded hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
                                     <i data-lucide="plus" class="w-4 h-4"></i> Agregar
@@ -321,50 +343,54 @@
                             </div>
                         </form>
                     </div>
+                </div>
 
-                    <!-- Generador de Links -->
+                <!-- COLUMNA DERECHA: LISTADO Y LINKS (8/12) -->
+                <div class="lg:col-span-8 flex flex-col gap-6">
+                    
+                    <!-- Generador de Links (Movido aquí para espacio) -->
                     <div class="bg-blue-50 p-4 rounded border border-blue-100">
-                        <h5 class="text-xs uppercase font-bold text-blue-400 tracking-wider mb-2">3. Compartir</h5>
-                        <div class="relative space-y-3">
-                            <p class="text-xs text-gray-600">Enlace para: <strong id="linkGuestName">Seleccione abajo...</strong></p>
-                            <div class="flex items-center gap-2">
-                                <input type="text" id="shareLinkInput" readonly class="w-full bg-white border border-blue-200 text-gray-600 text-xs p-2 rounded focus:outline-none select-all" value="...">
-                                <button id="copyLinkBtn" class="bg-blue-200 hover:bg-blue-300 text-blue-800 p-2 rounded transition-colors" title="Copiar">
-                                    <i data-lucide="copy" class="w-4 h-4"></i>
-                                </button>
+                        <h5 class="text-xs uppercase font-bold text-blue-400 tracking-wider mb-2">4. Compartir Enlace</h5>
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1">
+                                <p class="text-xs text-gray-600 mb-1">Enlace para: <strong id="linkGuestName">Seleccione abajo...</strong></p>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" id="shareLinkInput" readonly class="w-full bg-white border border-blue-200 text-gray-600 text-xs p-2 rounded focus:outline-none select-all" value="...">
+                                    <button id="copyLinkBtn" class="bg-blue-200 hover:bg-blue-300 text-blue-800 p-2 rounded transition-colors" title="Copiar">
+                                        <i data-lucide="copy" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- COLUMNA DERECHA: LISTADO (8/12) -->
-                <div class="lg:col-span-8">
-                    <div class="flex justify-between items-end mb-4 border-b border-gray-100 pb-2">
-                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider">Lista de Invitados (<span id="totalGuests">0</span>)</h5>
-                        <!-- Selector de vista previa (movido aquí para contexto) -->
-                        <div class="flex items-center gap-2">
-                            <span class="text-[10px] uppercase text-gray-400">Previsualizar como:</span>
-                            <select id="guestSelector" class="border border-gray-300 text-xs p-1 rounded max-w-[150px]">
-                                <!-- Se llena con JS -->
-                            </select>
+                    <!-- Tabla -->
+                    <div>
+                        <div class="flex justify-between items-end mb-4 border-b border-gray-100 pb-2">
+                            <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider">Lista de Invitados (<span id="totalGuests">0</span>)</h5>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] uppercase text-gray-400">Previsualizar:</span>
+                                <select id="guestSelector" class="border border-gray-300 text-xs p-1 rounded max-w-[150px]">
+                                    <!-- Se llena con JS -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto bg-white border border-gray-200 rounded shadow-sm">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                                        <th class="p-3 font-medium">Nombre</th>
+                                        <th class="p-3 font-medium text-center">Mesa</th>
+                                        <th class="p-3 font-medium text-right">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="guestListTableBody" class="text-sm text-gray-700 divide-y divide-gray-100">
+                                    <!-- Filas generadas por JS -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    
-                    <div class="overflow-x-auto bg-white border border-gray-200 rounded shadow-sm">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider border-b border-gray-200">
-                                    <th class="p-3 font-medium">Nombre</th>
-                                    <th class="p-3 font-medium text-center">Mesa</th>
-                                    <th class="p-3 font-medium text-right">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="guestListTableBody" class="text-sm text-gray-700 divide-y divide-gray-100">
-                                <!-- Filas generadas por JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="text-[10px] text-gray-400 mt-2 text-center">Haz clic en el icono de lápiz para editar o en el ojo para previsualizar.</p>
                 </div>
             </div>
         </div>
@@ -390,6 +416,7 @@
 
         const state = {
             currentStyleIndex: 0,
+            couple: { groom: "Alejandro", bride: "Sofia" }, // Nuevo estado para nombres
             guests: [
                 { id: "guest_001", name: "Familia Pérez", table: 1 },
                 { id: "guest_002", name: "Sr. Juan García", table: 5 },
@@ -397,7 +424,7 @@
                 { id: "guest_004", name: "Clara y Roberto", table: 2 }
             ],
             selectedGuestId: "guest_001",
-            editingGuestId: null, // Nuevo: controla si estamos editando
+            editingGuestId: null, 
             isPlaying: false
         };
 
@@ -422,11 +449,18 @@
             tableNum: document.getElementById('tableNumberDisplay'),
             rsvpName: document.getElementById('rsvpName'),
             rsvpForm: document.getElementById('rsvpForm'),
+            groomDisplay: document.getElementById('groomDisplay'),
+            brideDisplay: document.getElementById('brideDisplay'),
+            footerNames: document.getElementById('footerNames'),
             // Admin Global
             adminPanel: document.getElementById('adminPanel'),
             styleSelect: document.getElementById('styleSelector'),
             guestSelect: document.getElementById('guestSelector'),
             toggleAdminBtn: document.getElementById('toggleAdminBtn'),
+            // Admin: Nombres Pareja
+            inputGroom: document.getElementById('inputGroom'),
+            inputBride: document.getElementById('inputBride'),
+            updateNamesBtn: document.getElementById('updateNamesBtn'),
             // Admin Formulario
             adminForm: document.getElementById('adminForm'),
             formTitle: document.getElementById('formTitle'),
@@ -539,6 +573,35 @@
             updateShareLinkUI();
         }
 
+        // Se incluye el estado de los nombres en la URL?
+        // Nota: Para mantener las URLs cortas, NO guardaremos los nombres en la URL,
+        // asumimos que el administrador configura los nombres una vez.
+        // Si se recarga la página, volverán a default.
+        // *Mejora pro*: Guardar en localStorage.
+        
+        function updateCoupleNames(groom, bride) {
+            state.couple.groom = groom;
+            state.couple.bride = bride;
+            
+            dom.groomDisplay.textContent = groom;
+            dom.brideDisplay.textContent = bride;
+            dom.footerNames.textContent = `${groom} & ${bride}`;
+            
+            // Guardar en LocalStorage para persistencia simple
+            localStorage.setItem('wedding_groom', groom);
+            localStorage.setItem('wedding_bride', bride);
+        }
+
+        function loadSavedNames() {
+            const g = localStorage.getItem('wedding_groom');
+            const b = localStorage.getItem('wedding_bride');
+            if(g && b) {
+                updateCoupleNames(g, b);
+                dom.inputGroom.value = g;
+                dom.inputBride.value = b;
+            }
+        }
+
         function generateShareLink(guestId) {
             const baseUrl = window.location.origin + window.location.pathname;
             return `${baseUrl}?guest=${guestId}&style=${state.currentStyleIndex}`;
@@ -561,7 +624,7 @@
                 setTimeout(() => {
                     dom.guestName.textContent = guest.name;
                     dom.rsvpName.value = guest.name; 
-                    dom.tableNum.textContent = `#${guest.table}`;
+                    dom.tableNum.textContent = `${guest.table}`;
                     dom.guestName.style.opacity = 1;
                 }, 300);
                 dom.guestSelect.value = guest.id; // Sync dropdown
@@ -584,7 +647,7 @@
 
                 tr.innerHTML = `
                     <td class="p-3 font-medium text-gray-800">${guest.name}</td>
-                    <td class="p-3 text-center text-gray-500">${guest.table}</td>
+                    <td class="p-3 text-center text-gray-500 font-bold">${guest.table}</td>
                     <td class="p-3 text-right space-x-2">
                         <button onclick="previewGuest('${guest.id}')" class="text-gray-400 hover:text-blue-600 p-1" title="Previsualizar">
                             <i data-lucide="eye" class="w-4 h-4"></i>
@@ -654,7 +717,7 @@
             dom.inputTable.value = guest.table;
 
             // Cambiar UI a modo edición
-            dom.formTitle.textContent = "2. Editando Invitado";
+            dom.formTitle.textContent = "3. Editando Invitado";
             dom.submitBtn.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i> Guardar Cambios';
             dom.submitBtn.classList.replace('bg-gray-900', 'bg-yellow-600');
             dom.submitBtn.classList.replace('hover:bg-gray-800', 'hover:bg-yellow-700');
@@ -671,7 +734,7 @@
             dom.adminForm.reset();
             
             // Restaurar UI a modo creación
-            dom.formTitle.textContent = "2. Nuevo Invitado";
+            dom.formTitle.textContent = "3. Nuevo Invitado";
             dom.submitBtn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i> Agregar';
             dom.submitBtn.classList.replace('bg-yellow-600', 'bg-gray-900');
             dom.submitBtn.classList.replace('hover:bg-yellow-700', 'hover:bg-gray-800');
@@ -707,6 +770,18 @@
             state.selectedGuestId = e.target.value;
             updateGuestView();
             renderGuestList();
+        });
+
+        // Evento Actualizar Nombres
+        dom.updateNamesBtn.addEventListener('click', () => {
+            updateCoupleNames(dom.inputGroom.value, dom.inputBride.value);
+            // Feedback visual simple
+            dom.updateNamesBtn.textContent = "¡Actualizado!";
+            dom.updateNamesBtn.classList.replace('bg-yellow-600', 'bg-green-600');
+            setTimeout(() => {
+                dom.updateNamesBtn.textContent = "Actualizar Títulos";
+                dom.updateNamesBtn.classList.replace('bg-green-600', 'bg-yellow-600');
+            }, 2000);
         });
 
         dom.cancelEditBtn.addEventListener('click', cancelEdit);
@@ -773,6 +848,7 @@
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
+            loadSavedNames(); // Cargar nombres si existen en LocalStorage
             checkUrlParams();
             resizeCanvas();
             renderSelectors();
