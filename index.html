@@ -142,9 +142,6 @@
     <!-- CANVAS DE FONDO -->
     <canvas id="mainCanvas"></canvas>
 
-    <!-- UI DE CONFIGURACIÓN ELIMINADA DE LA VISTA PÚBLICA -->
-    <!-- Los controles ahora viven exclusivamente en el panel de administración -->
-
     <!-- CONTENEDOR PRINCIPAL -->
     <main class="relative z-10 w-full max-w-4xl mx-auto px-6 py-20 md:py-32 flex flex-col items-center text-center space-y-24">
 
@@ -173,15 +170,14 @@
             </div>
         </header>
 
-        <!-- MENSAJE EMOTIVO (Copywriting) -->
+        <!-- MENSAJE EMOTIVO -->
         <section class="glass-panel p-8 md:p-12 rounded-sm max-w-2xl fade-in-up delay-100 relative">
-            <!-- Decoración esquinas -->
             <div class="absolute top-2 left-2 w-4 h-4 border-t border-l border-[var(--primary-color)]"></div>
             <div class="absolute bottom-2 right-2 w-4 h-4 border-b border-r border-[var(--primary-color)]"></div>
 
             <h3 class="text-2xl mb-6 italic" style="color: var(--primary-color)">"El amor no hace girar al mundo, <br> el amor es lo que hace que el viaje valga la pena."</h3>
             <p class="leading-relaxed opacity-80 text-sm md:text-base font-light">
-                Hemos trazado un camino juntos lleno de momentos inolvidables, y en este día tan especial, el paisaje no estaría completo sin ti. Tu presencia es el regalo más valioso que podemos recibir. Queremos compartir nuestra dicha, brindar por el futuro y celebrar el amor que nos une.
+                Hemos trazado un camino juntos lleno de momentos inolvidables, y en este día tan especial, el paisaje no estaría completo sin ti. Tu presencia es el regalo más valioso que podemos recibir.
             </p>
             <p class="mt-6 font-bold uppercase text-xs tracking-widest" style="color: var(--primary-color)">
                 Mesa Asignada: <span id="tableNumberDisplay" class="text-lg ml-2">...</span>
@@ -215,17 +211,11 @@
                         <span>6:30 PM - Coctel de Bienvenida</span>
                     </li>
                     <li class="flex items-center gap-3">
-                        <i data-lucide="music" class="w-5 h-5"></i>
-                        <span>8:00 PM - Cena y Fiesta</span>
-                    </li>
-                    <li class="flex items-center gap-3">
                         <i data-lucide="map-pin" class="w-5 h-5"></i>
                         <span>Hacienda Santa Clara, Antigua Guatemala</span>
                     </li>
                 </ul>
-                <a href="https://goo.gl/maps/placeholder" target="_blank" class="btn-luxury inline-block mt-4">
-                    Ver Ubicación
-                </a>
+                <a href="#" class="btn-luxury inline-block mt-4">Ver Ubicación</a>
             </div>
             <div class="h-64 bg-gray-200 border border-[var(--primary-color)] p-2 shadow-inner rotate-1 hover:rotate-0 transition-transform duration-500">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.064299946927!2d-90.7360!3d14.5560!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDMzJzIxLjYiTiA5MMKwNDQnMTAuMCJX!5e0!3m2!1ses!2sgt!4v1620000000000!5m2!1ses!2sgt" width="100%" height="100%" style="border:0; filter: grayscale(80%) invert(10%) contrast(90%);" allowfullscreen="" loading="lazy"></iframe>
@@ -271,75 +261,118 @@
 
     </main>
 
-    <!-- PANEL ADMINISTRATIVO OCULTO (ACTUALIZADO) -->
-    <div id="adminPanel" class="fixed bottom-0 left-0 w-full bg-white shadow-2xl transform translate-y-full transition-transform duration-300 z-50 p-6 border-t border-gray-200 overflow-y-auto max-h-[80vh]">
-        <div class="max-w-4xl mx-auto flex flex-col gap-6">
-            
-            <!-- Cabecera Admin -->
-            <div class="flex justify-between items-start">
-                <div>
-                    <h4 class="font-bold text-gray-800 text-lg">Panel de Wedding Planner</h4>
-                    <p class="text-sm text-gray-500">Configuración global y gestión de invitados.</p>
-                </div>
-                <button id="closeAdmin" class="text-gray-400 hover:text-gray-600">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+    <!-- PANEL ADMINISTRATIVO (ACTUALIZADO: EDICIÓN Y LISTADO) -->
+    <div id="adminPanel" class="fixed bottom-0 left-0 w-full bg-white shadow-2xl transform translate-y-full transition-transform duration-300 z-50 border-t border-gray-200 h-[85vh] flex flex-col">
+        
+        <!-- Header del Panel -->
+        <div class="p-6 border-b border-gray-100 flex justify-between items-start bg-white z-10">
+            <div>
+                <h4 class="font-bold text-gray-800 text-lg">Panel de Wedding Planner</h4>
+                <p class="text-sm text-gray-500">Gestión total de invitados y estilos.</p>
             </div>
+            <button id="closeAdmin" class="text-gray-400 hover:text-gray-600 p-2">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Columna Izquierda: Configuración Visual y Agregar Invitado -->
-                <div class="space-y-6">
-                    <!-- Configuración Visual (Movida aquí) -->
-                    <div class="space-y-2 border-b border-gray-100 pb-4">
-                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider">Estilo Visual de la Boda</h5>
-                        <p class="text-xs text-gray-500">Este estilo se incluirá en el enlace generado.</p>
-                        <select id="styleSelector" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none">
+        <!-- Contenido Scrolleable -->
+        <div class="overflow-y-auto flex-1 p-6">
+            <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- COLUMNA IZQUIERDA: FORMULARIOS (4/12) -->
+                <div class="lg:col-span-4 space-y-8">
+                    
+                    <!-- Configuración Visual -->
+                    <div class="bg-gray-50 p-4 rounded border border-gray-100">
+                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-2">1. Estilo Visual</h5>
+                        <select id="styleSelector" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none bg-white">
                             <!-- Se llena con JS -->
                         </select>
                     </div>
 
-                    <div class="space-y-2">
-                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider">Registrar Nuevo Invitado</h5>
+                    <!-- Formulario de Gestión (Crear/Editar) -->
+                    <div class="bg-white p-4 rounded border border-gray-200 shadow-sm relative">
+                        <div id="editModeIndicator" class="hidden absolute -top-3 left-4 bg-yellow-100 text-yellow-800 text-[10px] uppercase font-bold px-2 py-1 rounded border border-yellow-200">
+                            Modo Edición
+                        </div>
+                        
+                        <h5 id="formTitle" class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">2. Nuevo Invitado</h5>
+                        
                         <form id="adminForm" class="flex flex-col gap-3">
-                            <input type="text" id="newGuestName" placeholder="Nombre (Ej: Familia Pérez)" class="border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none transition-colors" required>
-                            <div class="flex gap-2">
-                                <input type="number" id="newGuestTable" placeholder="Mesa #" class="border border-gray-300 p-2 text-sm rounded w-24 focus:border-yellow-500 outline-none transition-colors" required>
-                                <button type="submit" class="bg-gray-900 text-white px-4 py-2 text-sm rounded hover:bg-gray-800 flex-1 transition-colors">Agregar</button>
+                            <input type="hidden" id="editGuestId"> <!-- ID oculto para edición -->
+                            
+                            <div>
+                                <label class="text-[10px] uppercase text-gray-400 font-bold">Nombre</label>
+                                <input type="text" id="newGuestName" placeholder="Ej: Familia Pérez" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none transition-colors" required>
+                            </div>
+                            
+                            <div>
+                                <label class="text-[10px] uppercase text-gray-400 font-bold">Mesa</label>
+                                <input type="number" id="newGuestTable" placeholder="#" class="w-full border border-gray-300 p-2 text-sm rounded focus:border-yellow-500 outline-none transition-colors" required>
+                            </div>
+
+                            <div class="flex gap-2 pt-2">
+                                <button type="submit" id="submitGuestBtn" class="flex-1 bg-gray-900 text-white px-4 py-2 text-sm rounded hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+                                    <i data-lucide="plus" class="w-4 h-4"></i> Agregar
+                                </button>
+                                <button type="button" id="cancelEditBtn" class="hidden px-3 py-2 text-sm rounded border border-gray-300 hover:bg-gray-50 text-gray-600" title="Cancelar edición">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
-                </div>
 
-                <!-- Columna Derecha: Generador de Links -->
-                <div class="space-y-4 bg-gray-50 p-4 rounded border border-gray-100">
-                    <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider">Generar Enlace Personalizado</h5>
-                    <div class="relative space-y-4">
-                        <div>
-                            <p class="text-xs text-gray-500 mb-1">1. Selecciona el invitado para previsualizar:</p>
-                            <select id="guestSelector" class="w-full border border-gray-300 bg-white p-2 text-sm rounded focus:border-yellow-500 outline-none">
-                                <!-- Se llena con JS -->
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <p class="text-xs text-gray-500 mb-1">2. Copia el enlace (Incluye estilo + invitado):</p>
+                    <!-- Generador de Links -->
+                    <div class="bg-blue-50 p-4 rounded border border-blue-100">
+                        <h5 class="text-xs uppercase font-bold text-blue-400 tracking-wider mb-2">3. Compartir</h5>
+                        <div class="relative space-y-3">
+                            <p class="text-xs text-gray-600">Enlace para: <strong id="linkGuestName">Seleccione abajo...</strong></p>
                             <div class="flex items-center gap-2">
-                                <input type="text" id="shareLinkInput" readonly class="w-full bg-white border border-gray-300 text-gray-600 text-xs p-2 rounded focus:outline-none select-all" value="...">
-                                <button id="copyLinkBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 p-2 rounded transition-colors" title="Copiar al portapapeles">
+                                <input type="text" id="shareLinkInput" readonly class="w-full bg-white border border-blue-200 text-gray-600 text-xs p-2 rounded focus:outline-none select-all" value="...">
+                                <button id="copyLinkBtn" class="bg-blue-200 hover:bg-blue-300 text-blue-800 p-2 rounded transition-colors" title="Copiar">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
                             </div>
-                            <p class="text-[10px] text-gray-400 mt-1">El enlace cargará automáticamente el estilo visual seleccionado arriba.</p>
                         </div>
                     </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: LISTADO (8/12) -->
+                <div class="lg:col-span-8">
+                    <div class="flex justify-between items-end mb-4 border-b border-gray-100 pb-2">
+                        <h5 class="text-xs uppercase font-bold text-gray-400 tracking-wider">Lista de Invitados (<span id="totalGuests">0</span>)</h5>
+                        <!-- Selector de vista previa (movido aquí para contexto) -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] uppercase text-gray-400">Previsualizar como:</span>
+                            <select id="guestSelector" class="border border-gray-300 text-xs p-1 rounded max-w-[150px]">
+                                <!-- Se llena con JS -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto bg-white border border-gray-200 rounded shadow-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                                    <th class="p-3 font-medium">Nombre</th>
+                                    <th class="p-3 font-medium text-center">Mesa</th>
+                                    <th class="p-3 font-medium text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="guestListTableBody" class="text-sm text-gray-700 divide-y divide-gray-100">
+                                <!-- Filas generadas por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-2 text-center">Haz clic en el icono de lápiz para editar o en el ojo para previsualizar.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- BOTONES FLOTANTES -->
-    <button id="toggleAdminBtn" class="admin-toggle btn-luxury bg-white border-none shadow-lg text-xs py-2 px-4 rounded-full">
-        Admin
+    <button id="toggleAdminBtn" class="admin-toggle btn-luxury bg-white border-none shadow-lg text-xs py-2 px-4 rounded-full flex items-center gap-2">
+        <i data-lucide="settings" class="w-3 h-3"></i> Admin
     </button>
 
     <div id="audioBtn" class="audio-control shadow-lg" title="Reproducir/Pausar Música">
@@ -348,20 +381,13 @@
     
     <audio id="bgMusic" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-11070.mp3" type="audio/mp3">
-        Tu navegador no soporta audio.
     </audio>
 
     <script>
-        /**
-         * LÓGICA DE LA APLICACIÓN DE BODA
-         * Incluye: Gestión de estado, Renderizado de Canvas, Lógica de UI
-         */
-
-        // 1. CONFIGURACIÓN DE DATOS (ESTADO)
+        // --- 1. CONFIGURACIÓN Y ESTADO ---
         
         const generateId = () => Math.random().toString(36).substr(2, 9);
 
-        // Base de datos simulada
         const state = {
             currentStyleIndex: 0,
             guests: [
@@ -371,6 +397,7 @@
                 { id: "guest_004", name: "Clara y Roberto", table: 2 }
             ],
             selectedGuestId: "guest_001",
+            editingGuestId: null, // Nuevo: controla si estamos editando
             isPlaying: false
         };
 
@@ -387,28 +414,43 @@
             { id: 'winter_silver', name: 'Invierno Plata', primary: '#718096', text: '#2D3748', bg: '#F7FAFC', heading: 'Cormorant Garamond', body: 'Montserrat', effect: 'snow' }
         ];
 
-        // 2. REFERENCIAS DOM
+        // --- 2. REFERENCIAS DOM ---
         const dom = {
-            styleSelect: document.getElementById('styleSelector'),
-            guestSelect: document.getElementById('guestSelector'),
+            root: document.documentElement,
+            // UI Publica
             guestName: document.getElementById('guestNameDisplay'),
             tableNum: document.getElementById('tableNumberDisplay'),
             rsvpName: document.getElementById('rsvpName'),
-            root: document.documentElement,
-            audioBtn: document.getElementById('audioBtn'),
-            audio: document.getElementById('bgMusic'),
-            adminPanel: document.getElementById('adminPanel'),
-            adminForm: document.getElementById('adminForm'),
             rsvpForm: document.getElementById('rsvpForm'),
+            // Admin Global
+            adminPanel: document.getElementById('adminPanel'),
+            styleSelect: document.getElementById('styleSelector'),
+            guestSelect: document.getElementById('guestSelector'),
+            toggleAdminBtn: document.getElementById('toggleAdminBtn'),
+            // Admin Formulario
+            adminForm: document.getElementById('adminForm'),
+            formTitle: document.getElementById('formTitle'),
+            submitBtn: document.getElementById('submitGuestBtn'),
+            cancelEditBtn: document.getElementById('cancelEditBtn'),
+            inputName: document.getElementById('newGuestName'),
+            inputTable: document.getElementById('newGuestTable'),
+            editIndicator: document.getElementById('editModeIndicator'),
+            // Admin Listado
+            guestListBody: document.getElementById('guestListTableBody'),
+            totalGuests: document.getElementById('totalGuests'),
+            // Links
+            linkGuestName: document.getElementById('linkGuestName'),
             shareLinkInput: document.getElementById('shareLinkInput'),
-            copyLinkBtn: document.getElementById('copyLinkBtn')
+            copyLinkBtn: document.getElementById('copyLinkBtn'),
+            // Audio
+            audioBtn: document.getElementById('audioBtn'),
+            audio: document.getElementById('bgMusic')
         };
 
-        // 3. LÓGICA DE CANVAS
+        // --- 3. CANVAS ENGINE (Sin cambios mayores) ---
         const canvas = document.getElementById('mainCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let animationId;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -420,7 +462,6 @@
                 this.effectType = effectType;
                 this.reset();
             }
-
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
@@ -428,46 +469,28 @@
                 this.speedX = (Math.random() - 0.5) * 1;
                 this.speedY = (Math.random() - 0.5) * 1;
                 this.opacity = Math.random() * 0.5 + 0.1;
-                
                 if (this.effectType === 'snow' || this.effectType === 'petals') {
                     this.y = -10;
                     this.speedY = Math.random() * 1 + 0.5;
                 }
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
-
-                if (this.effectType === 'petals') {
-                    this.x += Math.sin(this.y * 0.01) * 0.5;
-                }
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+                if (this.effectType === 'petals') this.x += Math.sin(this.y * 0.01) * 0.5;
             }
-
             draw() {
                 ctx.fillStyle = getComputedStyle(dom.root).getPropertyValue('--primary-color');
                 ctx.globalAlpha = this.opacity;
                 ctx.beginPath();
-                
-                if (this.effectType === 'lines') {
-                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                } else if (this.effectType === 'petals') {
-                    ctx.ellipse(this.x, this.y, this.size * 2, this.size, Math.PI / 4, 0, Math.PI * 2);
-                } else if (this.effectType === 'stars' || this.effectType === 'sparkles') {
-                    ctx.moveTo(this.x - this.size, this.y);
-                    ctx.lineTo(this.x + this.size, this.y);
-                    ctx.moveTo(this.x, this.y - this.size);
-                    ctx.lineTo(this.x, this.y + this.size);
-                    ctx.stroke();
-                    ctx.strokeStyle = ctx.fillStyle;
-                } else {
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                }
-                
+                if (this.effectType === 'lines') ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                else if (this.effectType === 'petals') ctx.ellipse(this.x, this.y, this.size * 2, this.size, Math.PI / 4, 0, Math.PI * 2);
+                else if (this.effectType === 'stars' || this.effectType === 'sparkles') {
+                    ctx.moveTo(this.x - this.size, this.y); ctx.lineTo(this.x + this.size, this.y);
+                    ctx.moveTo(this.x, this.y - this.size); ctx.lineTo(this.x, this.y + this.size);
+                    ctx.stroke(); ctx.strokeStyle = ctx.fillStyle;
+                } else ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
@@ -475,21 +498,14 @@
         function initCanvas(effectType) {
             particles = [];
             const particleCount = window.innerWidth < 768 ? 40 : 100;
-            
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle(effectType));
-            }
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle(effectType));
         }
 
         function animateCanvas() {
             const currentStyle = stylesConfig[state.currentStyleIndex];
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
             
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
             if (currentStyle.effect === 'lines') {
                 ctx.strokeStyle = getComputedStyle(dom.root).getPropertyValue('--primary-color');
                 ctx.lineWidth = 0.5;
@@ -497,41 +513,96 @@
                     for (let b = a; b < particles.length; b++) {
                         const dx = particles[a].x - particles[b].x;
                         const dy = particles[a].y - particles[b].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 100) {
-                            ctx.globalAlpha = 1 - (distance / 100);
-                            ctx.beginPath();
-                            ctx.moveTo(particles[a].x, particles[a].y);
-                            ctx.lineTo(particles[b].x, particles[b].y);
-                            ctx.stroke();
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            ctx.globalAlpha = 1 - (dist / 100);
+                            ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke();
                         }
                     }
                 }
             }
-
-            animationId = requestAnimationFrame(animateCanvas);
+            requestAnimationFrame(animateCanvas);
         }
 
-        // 4. FUNCIONES DE GESTIÓN (UI)
+        // --- 4. CORE LOGIC & ADMIN FEATURES ---
 
         function applyStyle(index) {
             state.currentStyleIndex = index;
             const style = stylesConfig[index];
-
             dom.root.style.setProperty('--primary-color', style.primary);
             dom.root.style.setProperty('--text-color', style.text);
             dom.root.style.setProperty('--bg-color', style.bg);
             dom.root.style.setProperty('--font-heading', style.heading);
             dom.root.style.setProperty('--font-body', style.body);
-
             initCanvas(style.effect);
-            
-            // Actualizar selector del admin si cambió programáticamente (ej. por URL)
-            dom.styleSelect.value = index; 
-            
-            // Actualizar el enlace generado con el nuevo estilo
+            dom.styleSelect.value = index;
             updateShareLinkUI();
+        }
+
+        function generateShareLink(guestId) {
+            const baseUrl = window.location.origin + window.location.pathname;
+            return `${baseUrl}?guest=${guestId}&style=${state.currentStyleIndex}`;
+        }
+
+        function updateShareLinkUI() {
+            if (dom.shareLinkInput && state.selectedGuestId) {
+                const guest = state.guests.find(g => g.id === state.selectedGuestId);
+                if (guest) {
+                    dom.linkGuestName.textContent = guest.name;
+                    dom.shareLinkInput.value = generateShareLink(state.selectedGuestId);
+                }
+            }
+        }
+
+        function updateGuestView() {
+            const guest = state.guests.find(g => g.id === state.selectedGuestId);
+            if (guest) {
+                dom.guestName.style.opacity = 0;
+                setTimeout(() => {
+                    dom.guestName.textContent = guest.name;
+                    dom.rsvpName.value = guest.name; 
+                    dom.tableNum.textContent = `#${guest.table}`;
+                    dom.guestName.style.opacity = 1;
+                }, 300);
+                dom.guestSelect.value = guest.id; // Sync dropdown
+                updateShareLinkUI();
+            }
+        }
+
+        // --- FUNCIONES CRUD (CREATE, READ, UPDATE, DELETE) ---
+
+        function renderGuestList() {
+            dom.guestListBody.innerHTML = '';
+            dom.totalGuests.textContent = state.guests.length;
+
+            state.guests.forEach(guest => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 border-b border-gray-100 transition-colors";
+                
+                // Highlight si es el seleccionado actualmente
+                if(guest.id === state.selectedGuestId) tr.classList.add("bg-yellow-50");
+
+                tr.innerHTML = `
+                    <td class="p-3 font-medium text-gray-800">${guest.name}</td>
+                    <td class="p-3 text-center text-gray-500">${guest.table}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="previewGuest('${guest.id}')" class="text-gray-400 hover:text-blue-600 p-1" title="Previsualizar">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="editGuest('${guest.id}')" class="text-gray-400 hover:text-yellow-600 p-1" title="Editar">
+                            <i data-lucide="pencil" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="deleteGuest('${guest.id}')" class="text-gray-400 hover:text-red-600 p-1" title="Eliminar">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                dom.guestListBody.appendChild(tr);
+            });
+            lucide.createIcons();
+            
+            // Actualizar también los selectores
+            renderSelectors();
         }
 
         function renderSelectors() {
@@ -544,89 +615,138 @@
             ).join('');
         }
 
-        function generateShareLink(guestId) {
-            // URL incluye guest ID Y style index
-            const baseUrl = window.location.origin + window.location.pathname;
-            const styleIndex = state.currentStyleIndex;
-            return `${baseUrl}?guest=${guestId}&style=${styleIndex}`;
-        }
+        // Acciones globales (expuestas a window para onclick en HTML string)
+        window.previewGuest = (id) => {
+            state.selectedGuestId = id;
+            updateGuestView();
+            renderGuestList(); // Para actualizar el highlight
+        };
 
-        function updateShareLinkUI() {
-            if (dom.shareLinkInput && state.selectedGuestId) {
-                dom.shareLinkInput.value = generateShareLink(state.selectedGuestId);
+        window.deleteGuest = (id) => {
+            if (!confirm('¿Estás seguro de eliminar a este invitado?')) return;
+
+            // 1. Eliminar
+            state.guests = state.guests.filter(g => g.id !== id);
+
+            // 2. Seguridad: Si borramos al seleccionado, cambiar al primero disponible
+            if (state.selectedGuestId === id) {
+                if (state.guests.length > 0) {
+                    state.selectedGuestId = state.guests[0].id;
+                } else {
+                    // Caso extremo: lista vacía
+                    state.guests.push({ id: 'default', name: 'Invitado', table: 0 });
+                    state.selectedGuestId = 'default';
+                }
+                updateGuestView();
             }
-        }
 
-        function updateGuestView() {
-            const guest = state.guests.find(g => g.id === state.selectedGuestId);
+            // 3. Renderizar todo
+            renderGuestList();
+        };
+
+        window.editGuest = (id) => {
+            const guest = state.guests.find(g => g.id === id);
+            if (!guest) return;
+
+            // Llenar formulario
+            state.editingGuestId = id;
+            dom.inputName.value = guest.name;
+            dom.inputTable.value = guest.table;
+
+            // Cambiar UI a modo edición
+            dom.formTitle.textContent = "2. Editando Invitado";
+            dom.submitBtn.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i> Guardar Cambios';
+            dom.submitBtn.classList.replace('bg-gray-900', 'bg-yellow-600');
+            dom.submitBtn.classList.replace('hover:bg-gray-800', 'hover:bg-yellow-700');
+            dom.cancelEditBtn.classList.remove('hidden');
+            dom.editIndicator.classList.remove('hidden');
             
-            if (guest) {
-                // Actualizar UI Invitación
-                dom.guestName.style.opacity = 0;
-                setTimeout(() => {
-                    dom.guestName.textContent = guest.name;
-                    dom.rsvpName.value = guest.name; 
-                    dom.tableNum.textContent = `#${guest.table}`;
-                    dom.guestName.style.opacity = 1;
-                }, 300);
+            // Focus
+            dom.inputName.focus();
+            lucide.createIcons();
+        };
 
-                // Actualizar link
-                updateShareLinkUI();
-            }
+        function cancelEdit() {
+            state.editingGuestId = null;
+            dom.adminForm.reset();
+            
+            // Restaurar UI a modo creación
+            dom.formTitle.textContent = "2. Nuevo Invitado";
+            dom.submitBtn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i> Agregar';
+            dom.submitBtn.classList.replace('bg-yellow-600', 'bg-gray-900');
+            dom.submitBtn.classList.replace('hover:bg-yellow-700', 'hover:bg-gray-800');
+            dom.cancelEditBtn.classList.add('hidden');
+            dom.editIndicator.classList.add('hidden');
+            lucide.createIcons();
         }
 
-        // --- LÓGICA DE URL Y ROUTING ---
+        // --- 5. INITIALIZATION & EVENTS ---
+
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            const guestIdFromUrl = params.get('guest');
-            const styleIdFromUrl = params.get('style');
+            const guestId = params.get('guest');
+            const styleId = params.get('style');
 
-            // 1. Aplicar Estilo desde URL
-            if (styleIdFromUrl) {
-                const index = parseInt(styleIdFromUrl);
-                if (!isNaN(index) && index >= 0 && index < stylesConfig.length) {
-                    state.currentStyleIndex = index;
-                    console.log(`Aplicando estilo desde URL: ${stylesConfig[index].name}`);
-                }
-            }
-
-            // 2. Cargar Invitado desde URL
-            if (guestIdFromUrl) {
-                const exists = state.guests.find(g => g.id === guestIdFromUrl);
+            if (styleId) applyStyle(parseInt(styleId));
+            
+            if (guestId) {
+                const exists = state.guests.find(g => g.id === guestId);
                 if (exists) {
-                    state.selectedGuestId = guestIdFromUrl;
-                    console.log(`Cargando invitado desde URL: ${exists.name}`);
-                }
-
-                // 3. SEGURIDAD UI: Ocultar acceso administrativo en enlaces compartidos
-                // Si existe un parámetro de invitado, asumimos que es una vista pública
-                const adminBtn = document.getElementById('toggleAdminBtn');
-                if (adminBtn) {
-                    adminBtn.style.display = 'none';
+                    state.selectedGuestId = guestId;
+                    dom.toggleAdminBtn.style.display = 'none'; // Seguridad URL
                 }
             }
         }
 
-        // 5. EVENT LISTENERS E INICIALIZACIÓN
-
+        // Listeners
         window.addEventListener('resize', resizeCanvas);
-
-        // Cambio de Estilo (Solo Admin)
-        dom.styleSelect.addEventListener('change', (e) => {
-            applyStyle(parseInt(e.target.value));
-        });
-
-        // Cambio de Invitado (Solo Admin)
+        
+        dom.styleSelect.addEventListener('change', (e) => applyStyle(parseInt(e.target.value)));
+        
         dom.guestSelect.addEventListener('change', (e) => {
             state.selectedGuestId = e.target.value;
             updateGuestView();
+            renderGuestList();
         });
 
-        // Botón Copiar Link
+        dom.cancelEditBtn.addEventListener('click', cancelEdit);
+
+        // Form Submit: Maneja Crear y Editar
+        dom.adminForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = dom.inputName.value;
+            const table = dom.inputTable.value;
+
+            if (state.editingGuestId) {
+                // MODO EDICIÓN
+                const guest = state.guests.find(g => g.id === state.editingGuestId);
+                if (guest) {
+                    guest.name = name;
+                    guest.table = table;
+                    // Si estamos editando al que se ve actualmente, actualizar vista
+                    if (state.selectedGuestId === state.editingGuestId) updateGuestView();
+                }
+                cancelEdit();
+            } else {
+                // MODO CREACIÓN
+                const newId = "guest_" + generateId();
+                const newGuest = { id: newId, name: name, table: table };
+                state.guests.push(newGuest);
+                state.selectedGuestId = newId; 
+                updateGuestView();
+                dom.adminForm.reset();
+            }
+            renderGuestList();
+        });
+
+        // Toggle Panels
+        dom.toggleAdminBtn.addEventListener('click', () => dom.adminPanel.classList.toggle('translate-y-full'));
+        document.getElementById('closeAdmin').addEventListener('click', () => dom.adminPanel.classList.add('translate-y-full'));
+
+        // Copy Link
         dom.copyLinkBtn.addEventListener('click', () => {
             dom.shareLinkInput.select();
-            document.execCommand('copy'); 
-            
+            document.execCommand('copy');
             const originalIcon = dom.copyLinkBtn.innerHTML;
             dom.copyLinkBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-green-600"></i>';
             lucide.createIcons();
@@ -636,7 +756,7 @@
             }, 2000);
         });
 
-        // Audio Control
+        // Audio
         dom.audioBtn.addEventListener('click', () => {
             if (state.isPlaying) {
                 dom.audio.pause();
@@ -651,70 +771,17 @@
             lucide.createIcons();
         });
 
-        // Admin Panel Toggle
-        document.getElementById('toggleAdminBtn').addEventListener('click', () => {
-            dom.adminPanel.classList.toggle('translate-y-full');
-        });
-        document.getElementById('closeAdmin').addEventListener('click', () => {
-            dom.adminPanel.classList.add('translate-y-full');
-        });
-
-        // Admin Form: Añadir invitado
-        dom.adminForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('newGuestName').value;
-            const table = document.getElementById('newGuestTable').value;
-            const newId = "guest_" + generateId();
-            
-            const newGuest = {
-                id: newId,
-                name: name,
-                table: table
-            };
-            
-            state.guests.push(newGuest);
-            state.selectedGuestId = newId; 
-            
-            renderSelectors(); 
-            updateGuestView(); 
-            
-            dom.adminForm.reset();
-            const btn = dom.adminForm.querySelector('button');
-            const originalText = btn.textContent;
-            btn.textContent = "¡Agregado!";
-            btn.classList.add('bg-green-600');
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.classList.remove('bg-green-600');
-            }, 2000);
-        });
-
-        dom.rsvpForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = dom.rsvpForm.querySelector('button');
-            btn.textContent = "Enviando...";
-            btn.disabled = true;
-            setTimeout(() => {
-                btn.textContent = "¡Confirmado! Gracias";
-                btn.style.backgroundColor = "#48bb78";
-                btn.style.borderColor = "#48bb78";
-                const prevEffect = stylesConfig[state.currentStyleIndex].effect;
-                particles.forEach(p => { p.speedY = 5; p.effectType = 'sparkles'; });
-                setTimeout(() => { initCanvas(prevEffect); }, 2000);
-            }, 1500);
-        });
-
-        function init() {
-            checkUrlParams(); // Primero lee la URL
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            checkUrlParams();
             resizeCanvas();
-            renderSelectors(); // Llena los selects (ahora con los valores correctos de la URL)
-            applyStyle(state.currentStyleIndex); // Aplica el estilo (ya sea default o de URL)
-            updateGuestView(); // Aplica el invitado (ya sea default o de URL)
+            renderSelectors();
+            applyStyle(state.currentStyleIndex);
+            updateGuestView();
+            renderGuestList(); // Render inicial de la tabla
             animateCanvas();
             lucide.createIcons();
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
+        });
 
     </script>
 </body>
