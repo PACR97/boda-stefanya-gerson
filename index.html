@@ -311,6 +311,53 @@
             </div>
         </section>
 
+        <!-- SECCIÓN: TRASLADO -->
+        <section class="glass-panel w-full max-w-2xl p-8 md:p-10 rounded-sm fade-in-up delay-300 relative border-t-2 border-[var(--primary-color)]">
+            <!-- EDITADO: El ID ahora está aquí para controlar este título -->
+            <h3 id="transportInfoDisplay" class="text-2xl mb-6 font-serif text-[var(--primary-color)]">Traslado</h3>
+            
+            <div class="flex flex-col items-center text-center space-y-4">
+                <div class="p-4 rounded-full bg-[var(--secondary-color)] text-[var(--primary-color)] mb-2 shadow-sm">
+                    <i data-lucide="bus" class="w-8 h-8"></i>
+                </div>
+                
+                <div class="w-full text-center mt-2">
+                    <!-- El header "Detalles" vuelve a ser estático -->
+                    <h4 class="text-lg font-bold uppercase tracking-widest opacity-80 mb-6">Detalles</h4>
+                    
+                    <div class="space-y-4 text-base md:text-lg">
+                        <p class="flex flex-col md:flex-row justify-center items-center gap-2">
+                            <span class="text-[var(--primary-color)]">Hora de salida:</span> 
+                            <span id="transportTimeDisplay" class="font-light">...</span>
+                        </p>
+                        <p class="flex flex-col md:flex-row justify-center items-center gap-2">
+                            <span class="text-[var(--primary-color)]">Punto de reunión:</span> 
+                            <span id="transportMeetingPointDisplay" class="font-light">...</span>
+                        </p>
+                    </div>
+                    
+                    <p id="transportDetailsDisplay" class="mt-6 text-sm md:text-base italic opacity-70 max-w-lg mx-auto leading-relaxed">...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: REGALOS -->
+        <section class="glass-panel w-full max-w-2xl p-8 md:p-10 rounded-sm fade-in-up delay-300 relative border-t-2 border-[var(--primary-color)]">
+            <h3 id="giftsTitleDisplay" class="text-2xl mb-6 font-serif text-[var(--primary-color)]">Mesa de Regalos</h3>
+            
+            <div class="flex flex-col items-center text-center space-y-6">
+                <div class="p-4 rounded-full bg-[var(--secondary-color)] text-[var(--primary-color)] shadow-sm transform hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="gift" class="w-8 h-8"></i>
+                </div>
+                
+                <div class="w-full text-center max-w-lg">
+                    <p id="giftsDetailsDisplay" class="text-base md:text-lg font-light leading-relaxed opacity-80">
+                        Su presencia es nuestro mejor regalo. Sin embargo, si desean hacernos un presente, ponemos a su disposición...
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- RSVP -->
         <section class="glass-panel w-full max-w-lg p-8 rounded-sm fade-in-up delay-300 border-t-4 border-[var(--primary-color)] relative">
             <h3 class="text-2xl mb-4 font-serif">Confirmar Asistencia</h3>
@@ -363,6 +410,20 @@
                             <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Código Vestimenta</label>
                             <input type="text" id="inputDressCode" placeholder="Ej: Formal Riguroso" class="w-full border p-1.5 text-xs rounded">
                             <input type="text" id="inputDressCodeNote" placeholder="Nota (Ej: Rogamos evitar...)" class="w-full border p-1.5 text-xs rounded mt-1">
+
+                            <!-- INPUTS DE TRASLADO -->
+                            <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Traslado</label>
+                            <!-- Actualizado placeholder para reflejar el cambio -->
+                            <input type="text" id="inputTransportInfo" placeholder="Título Sección (Ej: Traslado)" class="w-full border p-1.5 text-xs rounded mb-1">
+                            <input type="text" id="inputTransportTime" placeholder="Hora de salida (Ej: 2:00 PM)" class="w-full border p-1.5 text-xs rounded">
+                            <input type="text" id="inputTransportMeetingPoint" placeholder="Punto de reunión (Ej: Casa Abuelos)" class="w-full border p-1.5 text-xs rounded mt-1">
+                            <!-- NUEVO: Nota adicional -->
+                            <textarea id="inputTransportDetails" rows="2" placeholder="Nota adicional (Ej: Habrá dos turnos...)" class="w-full border p-1.5 text-xs rounded mt-1"></textarea>
+                            
+                            <!-- NUEVOS INPUTS: REGALOS -->
+                            <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Regalos / Mesa de Regalos</label>
+                            <input type="text" id="inputGiftsTitle" placeholder="Título (Ej: Mesa de Regalos / Lluvia de Sobres)" class="w-full border p-1.5 text-xs rounded mb-1">
+                            <textarea id="inputGiftsDetails" rows="3" placeholder="Detalles (Cuenta bancaria, frase de sobres, link a tienda...)" class="w-full border p-1.5 text-xs rounded"></textarea>
 
                             <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Ubicación y Hora</label>
                             <input type="text" id="inputTime" placeholder="Ej: 5:00 PM" class="w-full border p-1.5 text-xs rounded">
@@ -485,13 +546,17 @@
                 dressCode: "...", dressCodeNote: "...", 
                 mapUrl: "#", mapEmbed: "" 
             },
+            // AGREGADO: 'info' para el texto editable "Detalles", 'details' para la nota inferior
+            transport: { info: "Detalles", time: "...", meetingPoint: "...", details: "..." }, 
+            // AGREGADO: Estado para Regalos
+            gifts: { title: "Mesa de Regalos", details: "..." },
             images: {
                 gallery1: null,
                 gallery2: null,
                 gallery3: null,
                 banner: null
             },
-            musicUrl: null, // NUEVO
+            musicUrl: null, 
             guests: [],
             selectedGuestId: null,
             editingGuestId: null,
@@ -551,7 +616,17 @@
             locationDisplay: document.getElementById('weddingLocationDisplay'),
             mapLink: document.getElementById('weddingMapLink'),
             dressCodeDisplay: document.getElementById('dressCodeDisplay'),
-            dressCodeNoteDisplay: document.getElementById('dressCodeNoteDisplay'), 
+            dressCodeNoteDisplay: document.getElementById('dressCodeNoteDisplay'),
+            // NUEVO: UI Traslado - Added ID for the editable header text & details
+            transportInfoDisplay: document.getElementById('transportInfoDisplay'),
+            transportTimeDisplay: document.getElementById('transportTimeDisplay'),
+            transportMeetingPointDisplay: document.getElementById('transportMeetingPointDisplay'),
+            transportDetailsDisplay: document.getElementById('transportDetailsDisplay'), 
+            
+            // NUEVO: UI Regalos
+            giftsTitleDisplay: document.getElementById('giftsTitleDisplay'),
+            giftsDetailsDisplay: document.getElementById('giftsDetailsDisplay'),
+
             // Admin Global
             adminPanel: document.getElementById('adminPanel'),
             styleSelect: document.getElementById('styleSelector'),
@@ -570,12 +645,22 @@
             inputTime: document.getElementById('inputTime'),
             inputLocation: document.getElementById('inputLocation'),
             inputMapUrl: document.getElementById('inputMapUrl'),
+            // NUEVO: Inputs Traslado
+            inputTransportInfo: document.getElementById('inputTransportInfo'), 
+            inputTransportTime: document.getElementById('inputTransportTime'),
+            inputTransportMeetingPoint: document.getElementById('inputTransportMeetingPoint'),
+            inputTransportDetails: document.getElementById('inputTransportDetails'), 
+
+            // NUEVO: Inputs Regalos
+            inputGiftsTitle: document.getElementById('inputGiftsTitle'),
+            inputGiftsDetails: document.getElementById('inputGiftsDetails'),
+
             // Files Inputs
             fileGallery1: document.getElementById('fileGallery1'),
             fileGallery2: document.getElementById('fileGallery2'),
             fileGallery3: document.getElementById('fileGallery3'),
             fileBanner: document.getElementById('fileBanner'),
-            fileMusic: document.getElementById('fileMusic'), // NUEVO
+            fileMusic: document.getElementById('fileMusic'),
             
             saveConfigBtn: document.getElementById('saveConfigBtn'),
             // Admin Guests
@@ -657,6 +742,17 @@
                         mapUrl: config.map_url || '#'
                     };
                     
+                    // NUEVO: Load Transport Info & Specifics
+                    // Cambiado el default a "Traslado"
+                    state.transport.info = config.transport_info || "Traslado"; 
+                    state.transport.time = config.transport_time || "2:00 PM";
+                    state.transport.meetingPoint = config.transport_meeting_point || "Casa de la Novia";
+                    state.transport.details = config.transport_details || "Nota adicional...";
+                    
+                    // NUEVO: Cargar datos de Regalos
+                    state.gifts.title = config.gifts_title || "Mesa de Regalos";
+                    state.gifts.details = config.gifts_details || "Su presencia es nuestro mejor regalo.";
+
                     // Images - Store URLs or defaults
                     state.images.gallery1 = config.gallery_img1 || "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80";
                     state.images.gallery2 = config.gallery_img2 || "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=600&q=80";
@@ -722,6 +818,14 @@
                 dress_code: dom.inputDressCode.value,
                 dress_code_note: dom.inputDressCodeNote.value, 
                 map_url: dom.inputMapUrl.value,
+                transport_info: dom.inputTransportInfo.value, 
+                transport_time: dom.inputTransportTime.value,
+                transport_meeting_point: dom.inputTransportMeetingPoint.value,
+                transport_details: dom.inputTransportDetails.value, 
+                // NUEVO: Guardar datos de Regalos
+                gifts_title: dom.inputGiftsTitle.value,
+                gifts_details: dom.inputGiftsDetails.value,
+                
                 style_index: parseInt(dom.styleSelect.value)
             };
 
@@ -758,7 +862,19 @@
                 state.details.dressCode = newConfig.dress_code;
                 state.details.dressCodeNote = newConfig.dress_code_note; 
                 state.details.mapUrl = newConfig.map_url;
+                state.transport = { 
+                    info: newConfig.transport_info, 
+                    time: newConfig.transport_time, 
+                    meetingPoint: newConfig.transport_meeting_point,
+                    details: newConfig.transport_details 
+                };
                 
+                // Actualizar estado local Regalos
+                state.gifts = {
+                    title: newConfig.gifts_title,
+                    details: newConfig.gifts_details
+                };
+
                 applyStyle(newConfig.style_index);
                 startCountdown();
                 updateUIFromState();
@@ -916,6 +1032,9 @@
 
         // --- UI LOGIC ---
         function updateUIFromState() {
+            // ACTUALIZACIÓN DINÁMICA DEL TÍTULO DE LA PÁGINA
+            document.title = `${state.couple.groom} & ${state.couple.bride} - Nuestra Boda`;
+
             dom.groomDisplay.textContent = state.couple.groom;
             dom.brideDisplay.textContent = state.couple.bride;
             dom.dateDisplay.textContent = state.details.date; 
@@ -927,6 +1046,16 @@
             dom.timeDisplay.textContent = state.details.time;
             dom.locationDisplay.textContent = state.details.location;
             dom.mapLink.href = state.details.mapUrl;
+            
+            // NUEVO: Update Transport UI
+            dom.transportInfoDisplay.textContent = state.transport.info;
+            dom.transportTimeDisplay.textContent = state.transport.time;
+            dom.transportMeetingPointDisplay.textContent = state.transport.meetingPoint;
+            dom.transportDetailsDisplay.textContent = state.transport.details; 
+
+            // NUEVO: Actualizar UI Regalos
+            dom.giftsTitleDisplay.textContent = state.gifts.title;
+            dom.giftsDetailsDisplay.innerHTML = state.gifts.details.replace(/\n/g, '<br>'); // Permitir saltos de línea
 
             // Update Images
             if(state.images.gallery1) dom.imgGallery1.src = state.images.gallery1;
@@ -951,6 +1080,16 @@
             dom.inputLocation.value = state.details.location;
             dom.inputMapUrl.value = state.details.mapUrl;
             
+            // NUEVO: Admin inputs Transport
+            dom.inputTransportInfo.value = state.transport.info;
+            dom.inputTransportTime.value = state.transport.time;
+            dom.inputTransportMeetingPoint.value = state.transport.meetingPoint;
+            dom.inputTransportDetails.value = state.transport.details; 
+            
+            // NUEVO: Inputs Admin Regalos
+            dom.inputGiftsTitle.value = state.gifts.title;
+            dom.inputGiftsDetails.value = state.gifts.details;
+
             dom.styleSelect.value = state.currentStyleIndex;
 
             renderGuestList();
