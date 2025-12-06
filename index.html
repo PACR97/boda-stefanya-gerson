@@ -69,7 +69,7 @@
 
         .audio-control {
             position: fixed; bottom: 20px; left: 20px; z-index: 50; width: 40px; height: 40px; border-radius: 50%;
-            border: 1px solid var(--primary-color); display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--primary-color); display: flex; align-items: center; justify-content center;
             cursor: pointer; color: var(--primary-color); background: var(--bg-color); transition: all 0.3s ease;
         }
         
@@ -296,7 +296,8 @@
                      class="w-full h-full object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105 filter grayscale-[30%] group-hover:grayscale-0" 
                      alt="Nuestra Historia">
                 <div class="absolute bottom-12 left-0 w-full text-center z-30">
-                    <p class="text-white text-lg md:text-2xl font-serif tracking-widest drop-shadow-md italic opacity-90">"El amor nunca se rinde"</p>
+                    <!-- EDITADO: Agregado ID para hacer el texto editable -->
+                    <p id="bannerQuoteDisplay" class="text-white text-lg md:text-2xl font-serif tracking-widest drop-shadow-md italic opacity-90">"El amor nunca se rinde"</p>
                 </div>
             </div>
         </section>
@@ -485,6 +486,10 @@
                         <label class="text-[10px] uppercase font-bold text-gray-400 block mb-1">Banner Principal (Ancho Completo)</label>
                         <input type="file" id="fileBanner" accept="image/*" class="w-full text-xs text-gray-500 border rounded cursor-pointer file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-purple-100 file:text-purple-700">
                         
+                        <!-- EDITADO: Nuevo input para la frase del banner -->
+                        <label class="text-[10px] uppercase font-bold text-gray-400 block mb-1 mt-4">Frase del Banner</label>
+                        <textarea id="inputBannerQuote" rows="2" placeholder='Ej: "El amor nunca se rinde"' class="w-full border p-1.5 text-xs rounded file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-purple-100 file:text-purple-700"></textarea>
+
                         <!-- NUEVO: MÚSICA DE FONDO -->
                         <label class="text-[10px] uppercase font-bold text-gray-400 block mb-1 mt-4">Música de Fondo (MP3)</label>
                         <input type="file" id="fileMusic" accept="audio/*" class="w-full text-xs text-gray-500 border rounded cursor-pointer file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-purple-100 file:text-purple-700">
@@ -574,7 +579,8 @@
         const state = {
             currentStyleIndex: 0,
             couple: { groom: "Cargando...", bride: "..." },
-            texts: { quote: "...", message: "...", rsvpNote: "..." },
+            // EDITADO: Agregado bannerQuote al estado de textos
+            texts: { quote: "...", message: "...", rsvpNote: "...", bannerQuote: "..." },
             details: { 
                 time: "...", location: "...", date: "...", targetDate: null,
                 rsvpDeadline: null, // NUEVO CAMPO
@@ -637,6 +643,8 @@
             imgGallery2: document.getElementById('imgGallery2'),
             imgGallery3: document.getElementById('imgGallery3'),
             imgBanner: document.getElementById('imgBanner'),
+            // EDITADO: Referencia al nuevo elemento de la frase del banner
+            bannerQuoteDisplay: document.getElementById('bannerQuoteDisplay'),
             // Countdown Refs
             countdownContainer: document.getElementById('countdownContainer'),
             cdDays: document.getElementById('cdDays'),
@@ -702,6 +710,8 @@
             fileGallery2: document.getElementById('fileGallery2'),
             fileGallery3: document.getElementById('fileGallery3'),
             fileBanner: document.getElementById('fileBanner'),
+            // EDITADO: Referencia al nuevo input de la frase del banner
+            inputBannerQuote: document.getElementById('inputBannerQuote'),
             fileMusic: document.getElementById('fileMusic'),
             
             saveConfigBtn: document.getElementById('saveConfigBtn'),
@@ -773,11 +783,13 @@
                 const { data: config, error: errConfig } = await supabase.from('wedding_config').select('*').single();
                 if (config) {
                     state.couple = { groom: config.groom, bride: config.bride };
-                    // Cargar rsvp_note
+                    // Cargar rsvp_note y bannerQuote
                     state.texts = { 
                         quote: config.quote, 
                         message: config.welcome_message,
-                        rsvpNote: config.rsvp_note || "Favor de confirmar asistencia." 
+                        rsvpNote: config.rsvp_note || "Favor de confirmar asistencia.",
+                        // EDITADO: Cargar la frase del banner
+                        bannerQuote: config.banner_quote || "El amor nunca se rinde"
                     };
                     state.details = { 
                         time: config.wedding_time || '5:00 PM', 
@@ -821,7 +833,8 @@
                     state.guests = guests.map(g => ({
                         id: g.id, name: g.name, table: g.table_number,
                         count: g.guest_count || 1, confirmed: g.confirmed || false,
-                        attending_count: g.attending_count // Added for CSV Export
+                        attending_count: g.attending_count,
+                        invitation_link: g.invitation_link // NUEVO: Mapear el link
                     }));
                 }
                 updateUIFromState();
@@ -860,6 +873,8 @@
                 quote: dom.inputQuote.value,
                 welcome_message: dom.inputMessage.value,
                 rsvp_note: dom.inputRsvpNote.value,
+                // EDITADO: Guardar la nueva frase del banner
+                banner_quote: dom.inputBannerQuote.value,
                 rsvp_deadline: dom.inputRsvpDeadline.value, // Guardar Deadline
                 wedding_time: dom.inputTime.value,
                 wedding_location: dom.inputLocation.value,
@@ -907,7 +922,9 @@
                 state.texts = { 
                     quote: newConfig.quote, 
                     message: newConfig.welcome_message,
-                    rsvpNote: newConfig.rsvp_note 
+                    rsvpNote: newConfig.rsvp_note,
+                    // EDITADO: Actualizar el estado local con la nueva frase
+                    bannerQuote: newConfig.banner_quote
                 };
                 state.details.time = newConfig.wedding_time;
                 state.details.location = newConfig.wedding_location;
@@ -961,15 +978,18 @@
             }
 
             // Headers
-            const headers = ["Nombre Completo", "Mesa Asignada", "Invitados (Total)", "Estado Confirmación", "Asistentes Confirmados (Real)"];
+            // EDITADO: Agregada columna Link de Invitación
+            const headers = ["Nombre Completo", "Mesa Asignada", "Invitados (Total)", "Estado Confirmación", "Asistentes Confirmados (Real)", "Link de Invitación"];
             
             // Rows
             const rows = state.guests.map(g => {
                 const confirmedStatus = g.confirmed ? "SI, ASISTIRÁ" : "PENDIENTE/NO";
                 const attendingReal = g.confirmed ? (g.attending_count || g.count) : 0;
+                // EDITADO: Usar el link guardado, o un mensaje si es antiguo
+                const inviteLink = g.invitation_link || "Link no generado (Invitado Antiguo)";
                 // Escape quotes for CSV format just in case
                 const safeName = `"${g.name.replace(/"/g, '""')}"`;
-                return [safeName, g.table, g.count, confirmedStatus, attendingReal];
+                return [safeName, g.table, g.count, confirmedStatus, attendingReal, inviteLink];
             });
 
             // Combine
@@ -1037,10 +1057,31 @@
         // --- DATABASE HELPERS ---
         async function dbAddGuest(name, table, count) {
             if (!supabase) return;
+            // 1. Insertamos el invitado
             const { data, error } = await supabase.from('guests').insert([{ name, table_number: table, guest_count: count, confirmed: false }]).select();
+            
             if (!error && data) {
-                state.guests.push({ id: data[0].id, name: data[0].name, table: data[0].table_number, count: data[0].guest_count, confirmed: false });
-                state.selectedGuestId = data[0].id;
+                const newGuest = data[0];
+                const newId = newGuest.id;
+                
+                // 2. NUEVO: Generamos el link basado en el dominio actual
+                const baseUrl = window.location.origin + window.location.pathname;
+                const link = `${baseUrl}?guest=${newId}`;
+
+                // 3. NUEVO: Guardamos el link inmediatamente en la base de datos
+                await supabase.from('guests').update({ invitation_link: link }).eq('id', newId);
+
+                // 4. Actualizamos el estado local
+                state.guests.push({ 
+                    id: newId, 
+                    name: newGuest.name, 
+                    table: newGuest.table_number, 
+                    count: newGuest.guest_count, 
+                    confirmed: false,
+                    invitation_link: link // Guardamos en memoria también
+                });
+                
+                state.selectedGuestId = newId;
                 renderGuestList(); renderSelectors(); updateGuestView();
             }
         }
@@ -1139,6 +1180,10 @@
             dom.giftsTitleDisplay.textContent = state.gifts.title;
             dom.giftsDetailsDisplay.innerHTML = state.gifts.details.replace(/\n/g, '<br>'); // Permitir saltos de línea
 
+            // EDITADO: Actualizar la frase del banner en la UI
+            // Se agregan comillas dobles alrededor del texto
+            dom.bannerQuoteDisplay.textContent = `"${state.texts.bannerQuote}"`;
+
             // Update Images
             if(state.images.gallery1) dom.imgGallery1.src = state.images.gallery1;
             if(state.images.gallery2) dom.imgGallery2.src = state.images.gallery2;
@@ -1159,6 +1204,9 @@
             // Actualizar Input Admin
             dom.inputRsvpNote.value = state.texts.rsvpNote;
             dom.inputRsvpDeadline.value = state.details.rsvpDeadline || ""; // Set input value
+            
+            // EDITADO: Actualizar el valor del nuevo input admin
+            dom.inputBannerQuote.value = state.texts.bannerQuote;
 
             dom.inputDressCode.value = state.details.dressCode;
             dom.inputDressCodeNote.value = state.details.dressCodeNote; 
@@ -1218,8 +1266,13 @@
                 dom.rsvpName.value = guest.name;
                 dom.tableNum.textContent = `${guest.table}`;
                 dom.guestSelect.value = guest.id;
-                const baseUrl = window.location.origin + window.location.pathname;
-                dom.shareLinkInput.value = `${baseUrl}?guest=${guest.id}`;
+                
+                // EDITADO: Usar el link guardado si existe, sino generarlo al vuelo
+                let linkToDisplay = guest.invitation_link;
+                if (!linkToDisplay) {
+                     linkToDisplay = window.location.origin + window.location.pathname + `?guest=${guest.id}`;
+                }
+                dom.shareLinkInput.value = linkToDisplay;
             }
         }
 
