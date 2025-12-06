@@ -31,8 +31,11 @@
         }
 
         body {
+            /* AUMENTADO: Tamaño base de fuente para mejor lectura */
             margin: 0; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-color);
             font-family: var(--font-body); transition: background-color 0.8s ease, color 0.5s ease;
+            font-size: 17px; /* Base aumentada */
+            line-height: 1.6; /* Interlineado más relajado */
         }
 
         /* Ocultar scroll cuando el sobre está visible */
@@ -193,67 +196,72 @@
     <main id="mainContent" class="relative z-10 w-full max-w-4xl mx-auto px-6 py-20 md:py-32 flex flex-col items-center text-center space-y-24 transition-opacity duration-1000 opacity-0">
 
         <header class="w-full space-y-6 fade-in-up">
-            <p class="uppercase tracking-[0.3em] text-xs md:text-sm font-light">Nos complace invitar a</p>
+            <!-- AUMENTADO: text-xs -> text-sm/base y tracking ajustado -->
+            <p class="uppercase tracking-[0.25em] text-sm md:text-base font-normal">Nos complace invitar a</p>
             
             <div class="py-4">
-                <h2 id="guestNameDisplay" class="text-3xl md:text-5xl lg:text-6xl text-[var(--primary-color)] capitalize font-medium min-h-[60px]">...</h2>
+                <h2 id="guestNameDisplay" class="text-4xl md:text-6xl lg:text-7xl text-[var(--primary-color)] capitalize font-medium min-h-[60px]">...</h2>
                 <div class="w-24 h-[1px] bg-[var(--primary-color)] mx-auto mt-6 opacity-50"></div>
             </div>
 
-            <p class="uppercase tracking-[0.2em] text-xs font-light mt-4">A la celebración de la unión de</p>
+            <!-- AUMENTADO -->
+            <p class="uppercase tracking-[0.2em] text-sm md:text-base font-normal mt-4">A celebrar nuestra union matrimonial</p>
             
-            <h1 class="text-6xl md:text-8xl lg:text-9xl mt-4 leading-tight">
+            <h1 class="text-7xl md:text-9xl lg:text-[10rem] mt-4 leading-tight">
                 <span id="groomDisplay" class="block transform -rotate-2 origin-bottom-right" style="color: var(--text-color)">Alejandro</span>
-                <span class="block text-4xl my-2 font-light italic text-[var(--primary-color)]">&</span>
+                <span class="block text-5xl my-4 font-light italic text-[var(--primary-color)]">&</span>
                 <span id="brideDisplay" class="block transform rotate-2 origin-bottom-left" style="color: var(--text-color)">Sofia</span>
             </h1>
 
-            <div id="weddingDateDisplay" class="mt-12 text-lg md:text-xl tracking-widest font-light border-y border-[var(--primary-color)] border-opacity-30 py-3 inline-block px-12 uppercase">...</div>
+            <!-- AUMENTADO: text-lg -> text-xl -->
+            <div id="weddingDateDisplay" class="mt-12 text-xl md:text-2xl tracking-widest font-normal border-y border-[var(--primary-color)] border-opacity-30 py-4 inline-block px-12 uppercase">...</div>
 
-            <!-- CUENTA REGRESIVA -->
-            <div id="countdownContainer" class="flex justify-center gap-4 md:gap-8 mt-10 mb-4 transition-opacity duration-1000" style="opacity: 0;">
+            <!-- CUENTA REGRESIVA MEJORADA -->
+            <div id="countdownContainer" class="flex justify-center gap-6 md:gap-10 mt-12 mb-4 transition-opacity duration-1000" style="opacity: 0;">
                 <div class="countdown-box">
-                    <span id="cdDays" class="countdown-number">00</span>
-                    <span class="countdown-label">Días</span>
+                    <span id="cdDays" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span class="countdown-label text-sm md:text-base font-bold">Días</span>
                 </div>
-                <div class="h-12 md:h-16 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
+                <div class="h-16 md:h-20 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
                 <div class="countdown-box">
-                    <span id="cdHours" class="countdown-number">00</span>
-                    <span class="countdown-label">Hrs</span>
+                    <span id="cdHours" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span class="countdown-label text-sm md:text-base font-bold">Hrs</span>
                 </div>
-                <div class="h-12 md:h-16 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
+                <div class="h-16 md:h-20 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
                 <div class="countdown-box">
-                    <span id="cdMinutes" class="countdown-number">00</span>
-                    <span class="countdown-label">Min</span>
+                    <span id="cdMinutes" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span class="countdown-label text-sm md:text-base font-bold">Min</span>
                 </div>
-                <div class="h-12 md:h-16 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
+                <div class="h-16 md:h-20 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
                 <div class="countdown-box">
-                    <span id="cdSeconds" class="countdown-number">00</span>
-                    <span class="countdown-label">Seg</span>
+                    <span id="cdSeconds" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span class="countdown-label text-sm md:text-base font-bold">Seg</span>
                 </div>
             </div>
         </header>
 
-        <section class="glass-panel p-8 md:p-12 rounded-sm max-w-2xl fade-in-up delay-100 relative">
+        <section class="glass-panel p-8 md:p-14 rounded-sm max-w-2xl fade-in-up delay-100 relative">
             <div class="absolute top-2 left-2 w-4 h-4 border-t border-l border-[var(--primary-color)]"></div>
             <div class="absolute bottom-2 right-2 w-4 h-4 border-b border-r border-[var(--primary-color)]"></div>
 
-            <h3 id="quoteDisplay" class="text-2xl mb-6 italic" style="color: var(--primary-color)">...</h3>
-            <p id="messageDisplay" class="leading-relaxed opacity-80 text-sm md:text-base font-light">...</p>
+            <!-- AUMENTADO: Título y Cuerpo del mensaje -->
+            <h3 id="quoteDisplay" class="text-3xl md:text-4xl mb-8 italic text-[var(--primary-color)] leading-snug">...</h3>
+            <!-- Eliminado font-light y aumentado tamaño -->
+            <p id="messageDisplay" class="leading-relaxed text-lg md:text-xl font-normal opacity-90">...</p>
             
-            <div class="mt-10 p-6 border border-[var(--primary-color)] bg-white/40 backdrop-blur-sm rounded-lg inline-block shadow-lg transform transition-transform hover:scale-105 duration-500 min-w-[200px]">
-                <p class="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-60">Tu Mesa Asignada</p>
-                <div class="flex items-center justify-center gap-2">
-                    <span class="text-2xl opacity-40 font-serif">No.</span>
-                    <span id="tableNumberDisplay" class="text-6xl font-serif text-[var(--primary-color)] leading-none">...</span>
+            <div class="mt-12 p-8 border border-[var(--primary-color)] bg-white/60 backdrop-blur-sm rounded-lg inline-block shadow-lg transform transition-transform hover:scale-105 duration-500 min-w-[220px]">
+                <p class="text-xs md:text-sm uppercase font-bold tracking-widest mb-3 opacity-70">Tu Mesa Asignada</p>
+                <div class="flex items-center justify-center gap-3">
+                    <span class="text-3xl opacity-50 font-serif">No.</span>
+                    <span id="tableNumberDisplay" class="text-7xl font-serif text-[var(--primary-color)] leading-none">...</span>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[var(--primary-color)] border-opacity-30">
-                     <p id="guestCountDisplay" class="text-lg font-serif font-bold text-[var(--primary-color)] uppercase tracking-wide">...</p>
+                <div class="mt-5 pt-4 border-t border-[var(--primary-color)] border-opacity-30">
+                     <p id="guestCountDisplay" class="text-xl font-serif font-bold text-[var(--primary-color)] uppercase tracking-wide">...</p>
                 </div>
             </div>
         </section>
 
-        <!-- Galeria (Collage) -->
+        <!-- Galeria (Collage) - Sin cambios de texto -->
         <section class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 fade-in-up delay-200">
             <div class="h-80 md:h-96 overflow-hidden relative group cursor-pointer shadow-lg">
                 <img id="imgGallery1" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
@@ -268,13 +276,14 @@
 
         <!-- UBICACIÓN -->
         <section class="w-full max-w-2xl mx-auto text-center fade-in-up delay-300">
-            <div class="space-y-6">
-                <h3 class="text-3xl text-[var(--primary-color)]">Ceremonia & Recepción</h3>
-                <ul class="space-y-4 opacity-80 text-sm flex flex-col items-center">
-                    <li class="flex items-center gap-3"><i data-lucide="clock" class="w-5 h-5"></i><span id="weddingTimeDisplay">...</span></li>
-                    <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5"></i><span id="weddingLocationDisplay">...</span></li>
+            <div class="space-y-8">
+                <h3 class="text-4xl md:text-5xl text-[var(--primary-color)]">Ceremonia & Recepción</h3>
+                <!-- AUMENTADO: Lista de detalles -->
+                <ul class="space-y-6 opacity-90 text-lg md:text-xl flex flex-col items-center">
+                    <li class="flex items-center gap-4"><i data-lucide="clock" class="w-6 h-6"></i><span id="weddingTimeDisplay" class="font-medium">...</span></li>
+                    <li class="flex items-center gap-4"><i data-lucide="map-pin" class="w-6 h-6"></i><span id="weddingLocationDisplay" class="font-medium">...</span></li>
                 </ul>
-                <a id="weddingMapLink" href="#" target="_blank" class="btn-luxury inline-block mt-4">Ver Ubicación en Mapa</a>
+                <a id="weddingMapLink" href="#" target="_blank" class="btn-luxury inline-block mt-6 text-sm font-bold">Ver Ubicación en Mapa</a>
             </div>
         </section>
 
@@ -294,15 +303,18 @@
 
         <!-- CÓDIGO DE VESTIMENTA -->
         <section class="glass-panel w-full max-w-2xl p-8 md:p-10 rounded-sm fade-in-up delay-300 relative border-t-2 border-[var(--primary-color)]">
-            <h3 class="text-2xl mb-6 font-serif text-[var(--primary-color)]">Código de Vestimenta</h3>
+            <h3 class="text-3xl md:text-4xl mb-8 text-[var(--primary-color)]">Código de Vestimenta</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="order-2 md:order-1 text-center space-y-4">
-                    <div class="flex items-center justify-center gap-2 text-[var(--primary-color)]">
-                        <i data-lucide="shirt" class="w-5 h-5"></i>
-                        <span class="uppercase tracking-widest text-xs font-bold">Recomendación</span>
+                <div class="order-2 md:order-1 text-center space-y-5">
+                    <div class="flex items-center justify-center gap-3 text-[var(--primary-color)]">
+                        <!-- ICONO ELIMINADO AQUI -->
+                        <!-- AUMENTADO: text-xs -> text-sm -->
+                        <span class="uppercase tracking-widest text-sm font-bold">Recomendación</span>
                     </div>
-                    <p id="dressCodeDisplay" class="text-lg md:text-xl font-light italic leading-relaxed">Formal Riguroso</p>
-                    <p id="dressCodeNoteDisplay" class="text-xs opacity-60">Rogamos evitar colores blancos o crema para las damas.</p>
+                    <!-- AUMENTADO: text-xl -> text-2xl y quitado font-light -->
+                    <p id="dressCodeDisplay" class="text-2xl md:text-3xl font-normal italic leading-relaxed">Formal Riguroso</p>
+                    <!-- AUMENTADO y opacidad reducida (más visible) -->
+                    <p id="dressCodeNoteDisplay" class="text-sm md:text-base opacity-90 font-medium">Rogamos evitar colores blancos o crema para las damas.</p>
                 </div>
                 <div class="order-1 md:order-2 flex gap-4 justify-center md:justify-end">
                     <div class="w-24 h-24 md:w-32 md:h-32 flex items-center justify-center rounded-full bg-[var(--secondary-color)] border border-[var(--primary-color)] shadow-lg transform -rotate-3 hover:rotate-0 transition duration-500 hover:shadow-xl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 md:w-16 md:h-16 text-[var(--primary-color)]"><path d="M6 3L6 21H18L18 3H6ZM6 3H18"></path><path d="M9 3V6L12 9L15 6V3"></path><path d="M9 21V11H15V21"></path><path d="M9 7.5L12 10.5L15 7.5"></path></svg></div>
@@ -313,45 +325,44 @@
 
         <!-- SECCIÓN: TRASLADO -->
         <section class="glass-panel w-full max-w-2xl p-8 md:p-10 rounded-sm fade-in-up delay-300 relative border-t-2 border-[var(--primary-color)]">
-            <!-- EDITADO: El ID ahora está aquí para controlar este título -->
-            <h3 id="transportInfoDisplay" class="text-2xl mb-6 font-serif text-[var(--primary-color)]">Traslado</h3>
+            <h3 id="transportInfoDisplay" class="text-3xl md:text-4xl mb-8 text-[var(--primary-color)]">Traslado</h3>
             
-            <div class="flex flex-col items-center text-center space-y-4">
-                <div class="p-4 rounded-full bg-[var(--secondary-color)] text-[var(--primary-color)] mb-2 shadow-sm">
-                    <i data-lucide="bus" class="w-8 h-8"></i>
+            <div class="flex flex-col items-center text-center space-y-6">
+                <div class="p-5 rounded-full bg-[var(--secondary-color)] text-[var(--primary-color)] mb-2 shadow-sm">
+                    <i data-lucide="bus" class="w-10 h-10"></i>
                 </div>
                 
                 <div class="w-full text-center mt-2">
-                    <!-- El header "Detalles" vuelve a ser estático -->
-                    <h4 class="text-lg font-bold uppercase tracking-widest opacity-80 mb-6">Detalles</h4>
+                    <h4 class="text-xl font-bold uppercase tracking-widest opacity-80 mb-8">Detalles</h4>
                     
-                    <div class="space-y-4 text-base md:text-lg">
-                        <p class="flex flex-col md:flex-row justify-center items-center gap-2">
-                            <span class="text-[var(--primary-color)]">Hora de salida:</span> 
-                            <span id="transportTimeDisplay" class="font-light">...</span>
+                    <div class="space-y-6 text-lg md:text-xl">
+                        <p class="flex flex-col md:flex-row justify-center items-center gap-3">
+                            <span class="text-[var(--primary-color)] font-bold">Hora de salida:</span> 
+                            <span id="transportTimeDisplay" class="font-normal">...</span>
                         </p>
-                        <p class="flex flex-col md:flex-row justify-center items-center gap-2">
-                            <span class="text-[var(--primary-color)]">Punto de reunión:</span> 
-                            <span id="transportMeetingPointDisplay" class="font-light">...</span>
+                        <p class="flex flex-col md:flex-row justify-center items-center gap-3">
+                            <span class="text-[var(--primary-color)] font-bold">Punto de reunión:</span> 
+                            <span id="transportMeetingPointDisplay" class="font-normal">...</span>
                         </p>
                     </div>
                     
-                    <p id="transportDetailsDisplay" class="mt-6 text-sm md:text-base italic opacity-70 max-w-lg mx-auto leading-relaxed">...</p>
+                    <p id="transportDetailsDisplay" class="mt-8 text-base md:text-lg italic opacity-90 max-w-xl mx-auto leading-relaxed">...</p>
                 </div>
             </div>
         </section>
 
         <!-- NUEVA SECCIÓN: REGALOS -->
         <section class="glass-panel w-full max-w-2xl p-8 md:p-10 rounded-sm fade-in-up delay-300 relative border-t-2 border-[var(--primary-color)]">
-            <h3 id="giftsTitleDisplay" class="text-2xl mb-6 font-serif text-[var(--primary-color)]">Mesa de Regalos</h3>
+            <h3 id="giftsTitleDisplay" class="text-3xl md:text-4xl mb-8 text-[var(--primary-color)]">Mesa de Regalos</h3>
             
             <div class="flex flex-col items-center text-center space-y-6">
-                <div class="p-4 rounded-full bg-[var(--secondary-color)] text-[var(--primary-color)] shadow-sm transform hover:scale-110 transition-transform duration-500">
-                    <i data-lucide="gift" class="w-8 h-8"></i>
+                <div class="p-5 rounded-full bg-[var(--secondary-color)] text-[var(--primary-color)] shadow-sm transform hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="gift" class="w-10 h-10"></i>
                 </div>
                 
-                <div class="w-full text-center max-w-lg">
-                    <p id="giftsDetailsDisplay" class="text-base md:text-lg font-light leading-relaxed opacity-80">
+                <div class="w-full text-center max-w-xl">
+                    <!-- AUMENTADO -->
+                    <p id="giftsDetailsDisplay" class="text-lg md:text-xl font-normal leading-relaxed opacity-90">
                         Su presencia es nuestro mejor regalo. Sin embargo, si desean hacernos un presente, ponemos a su disposición...
                     </p>
                 </div>
@@ -359,24 +370,38 @@
         </section>
 
         <!-- RSVP -->
-        <section class="glass-panel w-full max-w-lg p-8 rounded-sm fade-in-up delay-300 border-t-4 border-[var(--primary-color)] relative">
-            <h3 class="text-2xl mb-4 font-serif">Confirmar Asistencia</h3>
-            <button id="btnOpenRsvp" class="btn-luxury w-full flex justify-center items-center gap-2 group mb-4"><span>Confirmar Asistencia</span><i data-lucide="chevron-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i></button>
-            <form id="rsvpForm" class="space-y-4 text-left relative transition-all duration-700 hidden">
-                <button type="button" id="btnCloseRsvp" class="absolute -top-2 right-0 text-gray-400 hover:text-[var(--primary-color)] transition-colors p-2" title="Cerrar"><i data-lucide="x" class="w-5 h-5"></i></button>
-                <div id="rsvpContent" class="pt-2">
-                    <div><label class="block text-xs uppercase mb-1 opacity-70">Nombre</label><input type="text" id="rsvpName" class="w-full bg-transparent border-b border-gray-400 focus:border-[var(--primary-color)] outline-none py-2" readonly></div>
-                    <div class="flex gap-4 my-4">
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="attendance" value="si" class="accent-[var(--primary-color)]" checked><span class="text-sm">Asistiré</span></label>
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="attendance" value="no" class="accent-[var(--primary-color)]"><span class="text-sm">No podré</span></label>
-                    </div>
-                    <div><label class="block text-xs uppercase mb-1 opacity-70">Confirmar Cantidad (Personas)</label><input type="number" name="attending_count" id="rsvpAttendingCount" min="1" class="w-full bg-transparent border-b border-gray-400 focus:border-[var(--primary-color)] outline-none py-2" placeholder="Ej: 2"></div>
-                    <button type="submit" class="btn-luxury w-full bg-[var(--primary-color)] text-white mt-4">Enviar Confirmación</button>
+        <section class="glass-panel w-full max-w-lg p-10 rounded-sm fade-in-up delay-300 border-t-4 border-[var(--primary-color)] relative">
+            <h3 class="text-3xl md:text-4xl mb-4 text-[var(--primary-color)]">Confirmar Asistencia</h3>
+            
+            <!-- AUMENTADO -->
+            <p id="rsvpNoteDisplay" class="mb-8 text-base md:text-lg opacity-80 italic font-medium">...</p>
+            
+            <div id="rsvpExpiredMsg" class="hidden text-center py-8 bg-gray-50 rounded border border-gray-200">
+                <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gray-200 text-gray-500 mb-4">
+                    <i data-lucide="calendar-off" class="w-7 h-7"></i>
                 </div>
-            </form>
+                <h4 class="text-xl font-serif text-gray-800">Confirmaciones Cerradas</h4>
+                <p class="text-sm text-gray-500 mt-2 px-6">La fecha límite para confirmar asistencia ha pasado.</p>
+            </div>
+
+            <div id="rsvpActiveContainer">
+                <button id="btnOpenRsvp" class="btn-luxury w-full flex justify-center items-center gap-3 group mb-4 text-sm font-bold py-4"><span>Confirmar Asistencia</span><i data-lucide="chevron-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i></button>
+                <form id="rsvpForm" class="space-y-6 text-left relative transition-all duration-700 hidden">
+                    <button type="button" id="btnCloseRsvp" class="absolute -top-3 right-0 text-gray-400 hover:text-[var(--primary-color)] transition-colors p-2" title="Cerrar"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    <div id="rsvpContent" class="pt-4">
+                        <div><label class="block text-sm uppercase mb-2 opacity-80 font-bold">Nombre</label><input type="text" id="rsvpName" class="w-full bg-transparent border-b-2 border-gray-300 focus:border-[var(--primary-color)] outline-none py-3 text-lg" readonly></div>
+                        <div class="flex flex-col sm:flex-row gap-6 my-6">
+                            <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded"><input type="radio" name="attendance" value="si" class="accent-[var(--primary-color)] w-5 h-5" checked><span class="text-base font-medium">Asistiré</span></label>
+                            <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded"><input type="radio" name="attendance" value="no" class="accent-[var(--primary-color)] w-5 h-5"><span class="text-base font-medium">Lamento no poder asistir</span></label>
+                        </div>
+                        <div><label class="block text-sm uppercase mb-2 opacity-80 font-bold">Confirmar Cantidad (Personas)</label><input type="number" name="attending_count" id="rsvpAttendingCount" min="1" class="w-full bg-transparent border-b-2 border-gray-300 focus:border-[var(--primary-color)] outline-none py-3 text-lg" placeholder="Ej: 2"></div>
+                        <button type="submit" class="btn-luxury w-full bg-[var(--primary-color)] text-white mt-6 py-4 font-bold">Enviar Confirmación</button>
+                    </div>
+                </form>
+            </div>
         </section>
 
-        <footer class="text-xs opacity-50 pb-8"><p>Diseñado con amor para <span id="footerNames">...</span> &copy; 2025</p></footer>
+        <footer class="text-sm opacity-60 pb-10 font-medium"><p>Diseñado con amor para <span id="footerNames">...</span> &copy; 2025</p></footer>
     </main>
 
     <!-- ADMIN PANEL -->
@@ -406,6 +431,15 @@
                             <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Textos</label>
                             <textarea id="inputQuote" rows="2" placeholder="Frase" class="w-full border p-1.5 text-xs rounded"></textarea>
                             <textarea id="inputMessage" rows="2" placeholder="Bienvenida" class="w-full border p-1.5 text-xs rounded"></textarea>
+                            
+                            <!-- INPUTS RSVP ACTUALIZADOS -->
+                            <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Control RSVP</label>
+                            <input type="text" id="inputRsvpNote" placeholder="Nota RSVP (Ej: Confirmar antes del...)" class="w-full border p-1.5 text-xs rounded mb-1">
+                            <div class="flex items-center gap-2 bg-red-50 p-2 rounded border border-red-100">
+                                <span class="text-[10px] uppercase font-bold text-red-500 whitespace-nowrap">Fecha Límite:</span>
+                                <input type="date" id="inputRsvpDeadline" class="w-full border p-1 text-xs rounded bg-white">
+                            </div>
+                            <p class="text-[9px] text-gray-400 italic mt-1">Si la fecha actual supera esta fecha, el formulario se ocultará.</p>
 
                             <label class="text-[10px] uppercase font-bold text-gray-400 mt-2 block">Código Vestimenta</label>
                             <input type="text" id="inputDressCode" placeholder="Ej: Formal Riguroso" class="w-full border p-1.5 text-xs rounded">
@@ -540,9 +574,10 @@
         const state = {
             currentStyleIndex: 0,
             couple: { groom: "Cargando...", bride: "..." },
-            texts: { quote: "...", message: "..." },
+            texts: { quote: "...", message: "...", rsvpNote: "..." },
             details: { 
                 time: "...", location: "...", date: "...", targetDate: null,
+                rsvpDeadline: null, // NUEVO CAMPO
                 dressCode: "...", dressCodeNote: "...", 
                 mapUrl: "#", mapEmbed: "" 
             },
@@ -627,6 +662,11 @@
             giftsTitleDisplay: document.getElementById('giftsTitleDisplay'),
             giftsDetailsDisplay: document.getElementById('giftsDetailsDisplay'),
 
+            // NUEVO: UI RSVP Note
+            rsvpNoteDisplay: document.getElementById('rsvpNoteDisplay'),
+            rsvpExpiredMsg: document.getElementById('rsvpExpiredMsg'), // Nuevo
+            rsvpActiveContainer: document.getElementById('rsvpActiveContainer'), // Nuevo
+
             // Admin Global
             adminPanel: document.getElementById('adminPanel'),
             styleSelect: document.getElementById('styleSelector'),
@@ -640,6 +680,8 @@
             inputTargetDate: document.getElementById('inputTargetDate'),
             inputQuote: document.getElementById('inputQuote'),
             inputMessage: document.getElementById('inputMessage'),
+            inputRsvpNote: document.getElementById('inputRsvpNote'),
+            inputRsvpDeadline: document.getElementById('inputRsvpDeadline'), // Nuevo Input Admin
             inputDressCode: document.getElementById('inputDressCode'),
             inputDressCodeNote: document.getElementById('inputDressCodeNote'), 
             inputTime: document.getElementById('inputTime'),
@@ -731,12 +773,18 @@
                 const { data: config, error: errConfig } = await supabase.from('wedding_config').select('*').single();
                 if (config) {
                     state.couple = { groom: config.groom, bride: config.bride };
-                    state.texts = { quote: config.quote, message: config.welcome_message };
+                    // Cargar rsvp_note
+                    state.texts = { 
+                        quote: config.quote, 
+                        message: config.welcome_message,
+                        rsvpNote: config.rsvp_note || "Favor de confirmar asistencia." 
+                    };
                     state.details = { 
                         time: config.wedding_time || '5:00 PM', 
                         location: config.wedding_location || 'Antigua Guatemala',
                         date: config.wedding_date || 'SÁBADO 14 OCTUBRE 2025',
                         targetDate: config.target_date || '2025-10-14T17:00:00',
+                        rsvpDeadline: config.rsvp_deadline || null, // Cargar Deadline
                         dressCode: config.dress_code || 'Formal Riguroso', 
                         dressCodeNote: config.dress_code_note || 'Rogamos evitar colores blancos o crema para las damas.', 
                         mapUrl: config.map_url || '#'
@@ -811,6 +859,8 @@
                 bride: dom.inputBride.value,
                 quote: dom.inputQuote.value,
                 welcome_message: dom.inputMessage.value,
+                rsvp_note: dom.inputRsvpNote.value,
+                rsvp_deadline: dom.inputRsvpDeadline.value, // Guardar Deadline
                 wedding_time: dom.inputTime.value,
                 wedding_location: dom.inputLocation.value,
                 wedding_date: dom.inputDate.value,
@@ -854,9 +904,14 @@
                 }
 
                 state.couple = { groom: newConfig.groom, bride: newConfig.bride };
-                state.texts = { quote: newConfig.quote, message: newConfig.welcome_message };
+                state.texts = { 
+                    quote: newConfig.quote, 
+                    message: newConfig.welcome_message,
+                    rsvpNote: newConfig.rsvp_note 
+                };
                 state.details.time = newConfig.wedding_time;
                 state.details.location = newConfig.wedding_location;
+                state.details.rsvpDeadline = newConfig.rsvp_deadline; // Actualizar local
                 state.details.date = newConfig.wedding_date;
                 state.details.targetDate = newConfig.target_date;
                 state.details.dressCode = newConfig.dress_code;
@@ -1041,6 +1096,33 @@
             dom.footerNames.textContent = `${state.couple.groom} & ${state.couple.bride}`;
             dom.quoteDisplay.innerHTML = state.texts.quote.replace(/\n/g, '<br>');
             dom.messageDisplay.textContent = state.texts.message;
+            // Actualizar UI
+            dom.rsvpNoteDisplay.textContent = state.texts.rsvpNote;
+
+            // LÓGICA DE FECHA LÍMITE RSVP
+            if (state.details.rsvpDeadline) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Normalizar a medianoche para comparar solo fechas
+                const deadline = new Date(state.details.rsvpDeadline);
+                deadline.setHours(0, 0, 0, 0); // Normalizar fecha límite a 00:00 (o 24:00 si quisieras final del día, pero input date suele ser start)
+                
+                // Si hoy es MAYOR que el deadline, ocultar form
+                // Ej: Deadline 15 Oct. Hoy 16 Oct. 16 > 15 = True -> Expirado.
+                if (today > deadline) {
+                    dom.rsvpActiveContainer.style.display = 'none';
+                    dom.rsvpExpiredMsg.classList.remove('hidden');
+                    dom.rsvpExpiredMsg.style.display = 'block';
+                } else {
+                    dom.rsvpActiveContainer.style.display = 'block';
+                    dom.rsvpExpiredMsg.classList.add('hidden');
+                    dom.rsvpExpiredMsg.style.display = 'none';
+                }
+            } else {
+                // Si no hay fecha límite, mostrar siempre
+                dom.rsvpActiveContainer.style.display = 'block';
+                dom.rsvpExpiredMsg.classList.add('hidden');
+            }
+
             dom.dressCodeDisplay.textContent = state.details.dressCode; 
             dom.dressCodeNoteDisplay.textContent = state.details.dressCodeNote; 
             dom.timeDisplay.textContent = state.details.time;
@@ -1074,6 +1156,10 @@
             }
             dom.inputQuote.value = state.texts.quote;
             dom.inputMessage.value = state.texts.message;
+            // Actualizar Input Admin
+            dom.inputRsvpNote.value = state.texts.rsvpNote;
+            dom.inputRsvpDeadline.value = state.details.rsvpDeadline || ""; // Set input value
+
             dom.inputDressCode.value = state.details.dressCode;
             dom.inputDressCodeNote.value = state.details.dressCodeNote; 
             dom.inputTime.value = state.details.time;
