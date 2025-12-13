@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerson & Stefanya - Nuestra Boda</title>
+    <title>Alejandro & Sofia - Nuestra Boda</title>
     
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +67,7 @@
 
         .audio-control {
             position: fixed; bottom: 20px; left: 20px; z-index: 50; width: 40px; height: 40px; border-radius: 50%;
-            border: 1px solid var(--primary-color); display: flex; align-items: center; justify-content center;
+            border: 1px solid var(--primary-color); display: flex; align-items: center; justify-content: center; /* CORREGIDO: Faltaba : */
             cursor: pointer; color: var(--primary-color); background: var(--bg-color); transition: all 0.3s ease;
         }
         
@@ -153,8 +153,10 @@
         }
         @keyframes fadeInOut { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        .countdown-box { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 70px; }
-        .countdown-number { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; color: var(--primary-color); line-height: 0.9; }
+        /* CORREGIDO: Ajustado tamaño mínimo para mobile */
+        .countdown-box { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 50px; }
+        /* CORREGIDO: Ajustado tamaño fuente para mobile */
+        .countdown-number { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--primary-color); line-height: 0.9; }
         .countdown-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; margin-top: 8px; font-weight: 600; }
         @media (min-width: 768px) {
             .countdown-box { min-width: 100px; }
@@ -214,25 +216,25 @@
             <!-- REVERTIDO: text-xl md:text-2xl -> text-lg -->
             <div id="weddingDateDisplay" class="mt-12 text-lg tracking-widest font-light border-y border-[var(--primary-color)] border-opacity-30 py-4 inline-block px-12 uppercase">...</div>
 
-            <!-- CUENTA REGRESIVA -->
-            <div id="countdownContainer" class="flex justify-center gap-6 md:gap-10 mt-12 mb-4 transition-opacity duration-1000" style="opacity: 0;">
+            <!-- CUENTA REGRESIVA CORREGIDA (gap-2 en mobile) -->
+            <div id="countdownContainer" class="flex justify-center items-center gap-2 md:gap-10 mt-12 mb-4 transition-opacity duration-1000" style="opacity: 0;">
                 <div class="countdown-box">
-                    <span id="cdDays" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span id="cdDays" class="countdown-number">00</span>
                     <span class="countdown-label text-xs font-bold">Días</span>
                 </div>
                 <div class="h-16 md:h-20 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
                 <div class="countdown-box">
-                    <span id="cdHours" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span id="cdHours" class="countdown-number">00</span>
                     <span class="countdown-label text-xs font-bold">Hrs</span>
                 </div>
                 <div class="h-16 md:h-20 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
                 <div class="countdown-box">
-                    <span id="cdMinutes" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span id="cdMinutes" class="countdown-number">00</span>
                     <span class="countdown-label text-xs font-bold">Min</span>
                 </div>
                 <div class="h-16 md:h-20 w-[1px] bg-[var(--primary-color)] opacity-30 self-center"></div>
                 <div class="countdown-box">
-                    <span id="cdSeconds" class="countdown-number text-5xl md:text-7xl">00</span>
+                    <span id="cdSeconds" class="countdown-number">00</span>
                     <span class="countdown-label text-xs font-bold">Seg</span>
                 </div>
             </div>
