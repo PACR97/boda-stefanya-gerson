@@ -16,8 +16,8 @@
     <!-- Iconos (Lucide) -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- SUPABASE CLIENT -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- SUPABASE CLIENT
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
 
     <style>
         /* --- ESTILOS BASE --- */
@@ -71,7 +71,7 @@
         }
         
         #loadingOverlay {
-            position: fixed; inset: 0; bg-white; z-index: 100; display: flex; justify-content: center; align-items: center;
+            position: fixed; inset: 0; background-color: bg-white; z-index: 100; display: flex; justify-content: center; align-items: center;
             background: rgba(255,255,255,1); transition: opacity 0.5s ease;
         }
 
@@ -555,7 +555,8 @@
     <div id="audioBtn" class="audio-control shadow-lg"><i data-lucide="music" class="w-5 h-5"></i></div>
     <audio id="bgMusic" loop></audio>
 
-    <script>
+    <script type="module">
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm";
         // =================================================================
         // CONFIGURACIÓN SUPABASE
         // =================================================================
@@ -564,7 +565,7 @@
 
         let supabase = null;
         if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         } else {
             console.error("⚠️ SUPABASE NO CONFIGURADO.");
             alert("⚠️ Modo Demo: Edita el archivo HTML y agrega las claves de Supabase.");
