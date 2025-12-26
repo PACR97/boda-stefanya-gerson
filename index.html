@@ -258,13 +258,16 @@
         <!-- Galeria (Collage) -->
         <section class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 fade-in-up delay-200">
             <div class="h-[500px] md:h-96 overflow-hidden relative group cursor-pointer shadow-lg">
-                <img id="imgGallery1" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+                <!-- Eliminado grayscale -->
+                <img id="imgGallery1" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 hover:scale-105">
             </div>
             <div class="h-[500px] md:h-96 md:-mt-12 overflow-hidden relative group cursor-pointer shadow-xl z-10">
-                <img id="imgGallery2" src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover sepia group-hover:sepia-0 transition duration-700">
+                <!-- Eliminado sepia -->
+                <img id="imgGallery2" src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 hover:scale-105">
             </div>
             <div class="h-[500px] md:h-96 overflow-hidden relative group cursor-pointer shadow-lg">
-                <img id="imgGallery3" src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+                <!-- Eliminado grayscale -->
+                <img id="imgGallery3" src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 hover:scale-105">
             </div>
         </section>
 
@@ -285,8 +288,9 @@
             <div class="relative w-full h-[400px] md:h-[500px] overflow-hidden group">
                 <div class="absolute inset-0 border-[1px] border-white/30 m-6 z-20 pointer-events-none"></div>
                 <div class="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/0 transition duration-1000"></div>
+                <!-- Eliminado filter grayscale-[30%] -->
                 <img id="imgBanner" src="https://images.unsplash.com/photo-1519225421980-715cb0202128?auto=format&fit=crop&w=1200&q=80" 
-                     class="w-full h-full object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105 filter grayscale-[30%] group-hover:grayscale-0" 
+                     class="w-full h-full object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105" 
                      alt="Nuestra Historia">
                 <div class="absolute bottom-12 left-0 w-full text-center z-30">
                     <p id="bannerQuoteDisplay" class="text-white text-lg md:text-2xl font-serif tracking-widest drop-shadow-md italic opacity-90">"El amor nunca se rinde"</p>
@@ -393,9 +397,9 @@
             <div class="relative w-full h-[400px] md:h-[500px] overflow-hidden group">
                 <div class="absolute inset-0 border-[1px] border-white/30 m-6 z-20 pointer-events-none"></div>
                 <div class="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/0 transition duration-1000"></div>
-                <!-- ID para control dinámico -->
+                <!-- Eliminado filter grayscale-[30%] -->
                 <img id="imgFooterBanner" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=80" 
-                     class="w-full h-full object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105 filter grayscale-[30%] group-hover:grayscale-0" 
+                     class="w-full h-full object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105" 
                      alt="Gracias por acompañarnos">
             </div>
         </section>
