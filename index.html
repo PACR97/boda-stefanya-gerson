@@ -244,13 +244,15 @@
             <p id="messageDisplay" class="leading-relaxed text-base font-light opacity-80">...</p>
             
             <div class="mt-12 p-8 border border-[var(--primary-color)] bg-white/60 backdrop-blur-sm rounded-lg inline-block shadow-lg transform transition-transform hover:scale-105 duration-500 min-w-[200px]">
-                <p class="text-xs uppercase font-bold tracking-widest mb-3 opacity-70">Tu Mesa Asignada</p>
+                <!-- EDITADO: Título cambiado a RESERVADO PARA: -->
+                <p class="text-xs uppercase font-bold tracking-widest mb-3 opacity-70">RESERVADO PARA:</p>
                 <div class="flex items-center justify-center gap-3">
                     <span class="text-3xl opacity-50 font-serif">No.</span>
                     <span id="tableNumberDisplay" class="text-7xl font-serif text-[var(--primary-color)] leading-none">...</span>
                 </div>
                 <div class="mt-5 pt-4 border-t border-[var(--primary-color)] border-opacity-30">
-                     <p id="guestCountDisplay" class="text-lg font-serif font-bold text-[var(--primary-color)] uppercase tracking-wide">...</p>
+                     <!-- EDITADO: El texto inicial será estático "Personas" -->
+                     <p id="guestCountDisplay" class="text-lg font-serif font-bold text-[var(--primary-color)] uppercase tracking-wide">Personas</p>
                 </div>
             </div>
         </section>
@@ -1216,10 +1218,16 @@
             const guest = state.guests.find(g => g.id === state.selectedGuestId);
             if (guest) {
                 dom.guestName.textContent = guest.name;
-                const countText = guest.count && guest.count > 1 ? `Para ${guest.count} Personas` : 'Para 1 Persona';
-                dom.guestCount.textContent = countText;
+                
+                // EDITADO: Lógica modificada según solicitud
+                // El número grande ahora muestra la cantidad de invitados (guest.count) en lugar de la mesa
+                dom.tableNum.textContent = `${guest.count}`;
+                
+                // El texto inferior ahora solo dice "Personas" (sin el número ni "Para")
+                dom.guestCount.textContent = "Personas"; 
+
                 dom.rsvpName.value = guest.name;
-                dom.tableNum.textContent = `${guest.table}`;
+                dom.tableNum.textContent = `${guest.count}`; // Asegurar que use el count
                 dom.guestSelect.value = guest.id;
                 
                 let linkToDisplay = guest.invitation_link;
