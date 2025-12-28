@@ -247,7 +247,7 @@
                 <!-- EDITADO: Título cambiado a RESERVADO PARA: -->
                 <p class="text-xs uppercase font-bold tracking-widest mb-3 opacity-70">RESERVADO PARA:</p>
                 <div class="flex items-center justify-center gap-3">
-                    <span class="text-3xl opacity-50 font-serif">No.</span>
+                    <span class="text-3xl opacity-50 font-serif"></span>
                     <span id="tableNumberDisplay" class="text-7xl font-serif text-[var(--primary-color)] leading-none">...</span>
                 </div>
                 <div class="mt-5 pt-4 border-t border-[var(--primary-color)] border-opacity-30">
@@ -294,9 +294,6 @@
                 <img id="imgBanner" src="https://images.unsplash.com/photo-1519225421980-715cb0202128?auto=format&fit=crop&w=1200&q=80" 
                      class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" 
                      alt="Nuestra Historia" style="object-position: 80% center;">
-                <div class="absolute bottom-12 left-0 w-full text-center z-30">
-                    <p id="bannerQuoteDisplay" class="text-white text-lg md:text-2xl font-serif tracking-widest drop-shadow-md italic opacity-90">"El amor nunca se rinde"</p>
-                </div>
             </div>
         </section>
 
@@ -643,7 +640,6 @@
             imgGallery3: document.getElementById('imgGallery3'),
             imgBanner: document.getElementById('imgBanner'),
             imgFooterBanner: document.getElementById('imgFooterBanner'), // NUEVO DOM REF
-            bannerQuoteDisplay: document.getElementById('bannerQuoteDisplay'),
             // Countdown Refs
             countdownContainer: document.getElementById('countdownContainer'),
             cdDays: document.getElementById('cdDays'),
@@ -1143,8 +1139,6 @@
 
             dom.giftsTitleDisplay.textContent = state.gifts.title;
             dom.giftsDetailsDisplay.innerHTML = state.gifts.details.replace(/\n/g, '<br>');
-
-            dom.bannerQuoteDisplay.textContent = `"${state.texts.bannerQuote}"`;
 
             // Update Images
             if(state.images.gallery1) dom.imgGallery1.src = state.images.gallery1;
