@@ -162,6 +162,14 @@
             .countdown-number { font-size: 4rem; }
             .countdown-label { font-size: 0.9rem; letter-spacing: 3px; }
         }
+
+        /* Estilo para input deshabilitado */
+        input:disabled {
+            background-color: transparent;
+            color: #9ca3af; /* gray-400 */
+            border-color: #e5e7eb; /* gray-200 */
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-yellow-200 selection:text-yellow-900 envelope-active">
@@ -244,14 +252,12 @@
             <p id="messageDisplay" class="leading-relaxed text-base font-light opacity-80">...</p>
             
             <div class="mt-12 p-8 border border-[var(--primary-color)] bg-white/60 backdrop-blur-sm rounded-lg inline-block shadow-lg transform transition-transform hover:scale-105 duration-500 min-w-[200px]">
-                <!-- EDITADO: Título cambiado a RESERVADO PARA: -->
                 <p class="text-xs uppercase font-bold tracking-widest mb-3 opacity-70">RESERVADO PARA:</p>
                 <div class="flex items-center justify-center gap-3">
                     <span class="text-3xl opacity-50 font-serif"></span>
                     <span id="tableNumberDisplay" class="text-7xl font-serif text-[var(--primary-color)] leading-none">...</span>
                 </div>
                 <div class="mt-5 pt-4 border-t border-[var(--primary-color)] border-opacity-30">
-                     <!-- EDITADO: El texto inicial será estático "Personas" -->
                      <p id="guestCountDisplay" class="text-lg font-serif font-bold text-[var(--primary-color)] uppercase tracking-wide">Personas</p>
                 </div>
             </div>
@@ -384,7 +390,8 @@
                             <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="attendance" value="si" class="accent-[var(--primary-color)]" checked><span class="text-sm">Asistiré</span></label>
                             <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="attendance" value="no" class="accent-[var(--primary-color)]"><span class="text-sm">Lamento no poder asistir</span></label>
                         </div>
-                        <div><label class="block text-xs uppercase mb-1 opacity-70">Confirmar Cantidad (Personas)</label><input type="number" name="attending_count" id="rsvpAttendingCount" min="1" class="w-full bg-transparent border-b border-gray-400 focus:border-[var(--primary-color)] outline-none py-2" placeholder="Ej: 2"></div>
+                        <!-- EDITADO: Agregado id="countContainer" para controlar la opacidad -->
+                        <div id="countContainer"><label class="block text-xs uppercase mb-1 opacity-70">Confirmar Cantidad (Personas)</label><input type="number" name="attending_count" id="rsvpAttendingCount" min="1" class="w-full bg-transparent border-b border-gray-400 focus:border-[var(--primary-color)] outline-none py-2" placeholder="Ej: 2"></div>
                         <button type="submit" class="btn-luxury w-full bg-[var(--primary-color)] text-white mt-4">Enviar Confirmación</button>
                     </div>
                 </form>
@@ -631,6 +638,7 @@
             rsvpForm: document.getElementById('rsvpForm'),
             rsvpName: document.getElementById('rsvpName'),
             rsvpAttendingCount: document.getElementById('rsvpAttendingCount'),
+            countContainer: document.getElementById('countContainer'), // Nuevo contenedor
             groomDisplay: document.getElementById('groomDisplay'),
             brideDisplay: document.getElementById('brideDisplay'),
             dateDisplay: document.getElementById('weddingDateDisplay'),
@@ -640,6 +648,8 @@
             imgGallery3: document.getElementById('imgGallery3'),
             imgBanner: document.getElementById('imgBanner'),
             imgFooterBanner: document.getElementById('imgFooterBanner'), // NUEVO DOM REF
+            // bannerQuoteDisplay eliminado
+            
             // Countdown Refs
             countdownContainer: document.getElementById('countdownContainer'),
             cdDays: document.getElementById('cdDays'),
@@ -880,6 +890,7 @@
             // Solo actualizar si hay nuevos archivos
             if (newGallery1) newConfig.gallery_img1 = newGallery1;
             if (newGallery2) newConfig.gallery_img2 = newGallery2;
+            if (newGallery3) newConfig.gallery_img3 = newConfig.gallery_img3; // Fix typo
             if (newGallery3) newConfig.gallery_img3 = newGallery3;
             if (newBanner) newConfig.banner_img = newBanner;
             if (newFooterBanner) newConfig.footer_banner_img = newFooterBanner; // GUARDAR EN DB
@@ -1140,6 +1151,8 @@
             dom.giftsTitleDisplay.textContent = state.gifts.title;
             dom.giftsDetailsDisplay.innerHTML = state.gifts.details.replace(/\n/g, '<br>');
 
+            // dom.bannerQuoteDisplay.textContent eliminado
+
             // Update Images
             if(state.images.gallery1) dom.imgGallery1.src = state.images.gallery1;
             if(state.images.gallery2) dom.imgGallery2.src = state.images.gallery2;
@@ -1221,7 +1234,11 @@
                 dom.guestCount.textContent = "Personas"; 
 
                 dom.rsvpName.value = guest.name;
-                dom.tableNum.textContent = `${guest.count}`; // Asegurar que use el count
+                // Establecer el máximo y el valor por defecto en el input
+                dom.rsvpAttendingCount.max = guest.count;
+                dom.rsvpAttendingCount.placeholder = `Máximo ${guest.count}`;
+                dom.rsvpAttendingCount.value = guest.count;
+                
                 dom.guestSelect.value = guest.id;
                 
                 let linkToDisplay = guest.invitation_link;
@@ -1312,6 +1329,20 @@
         });
 
         // RSVP FORM
+        // Lógica para habilitar/deshabilitar input basado en radio buttons
+        const rsvpRadios = document.querySelectorAll('input[name="attendance"]');
+        rsvpRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'si') {
+                    dom.rsvpAttendingCount.disabled = false;
+                    dom.countContainer.style.opacity = '1';
+                } else {
+                    dom.rsvpAttendingCount.disabled = true;
+                    dom.countContainer.style.opacity = '0.5';
+                }
+            });
+        });
+
         dom.btnOpenRsvp.addEventListener('click', () => { dom.btnOpenRsvp.style.display = 'none'; dom.rsvpForm.classList.remove('hidden'); dom.rsvpForm.classList.add('fade-in-up'); });
         dom.btnCloseRsvp.addEventListener('click', () => { dom.rsvpForm.classList.add('hidden'); dom.rsvpForm.classList.remove('fade-in-up'); dom.btnOpenRsvp.style.display = 'flex'; });
         dom.rsvpForm.addEventListener('submit', async (e) => {
@@ -1320,6 +1351,16 @@
             const formData = new FormData(dom.rsvpForm);
             const isAttending = formData.get('attendance') === 'si';
             const attendingCount = formData.get('attending_count'); 
+            
+            // Validación extra del lado del cliente
+            if (isAttending) {
+                const guest = state.guests.find(g => g.id === state.selectedGuestId);
+                if (guest && parseInt(attendingCount) > guest.count) {
+                    alert(`La cantidad máxima de invitados permitida es ${guest.count}.`);
+                    return;
+                }
+            }
+
             const btn = dom.rsvpForm.querySelector('button[type="submit"]'); 
             const originalText = btn.textContent;
             btn.textContent = "Enviando..."; btn.disabled = true;
